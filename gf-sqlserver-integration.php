@@ -19,7 +19,17 @@ require_once( 'models/Transaction.php' );
 //use Models\Transaction;
 //use Models\BaseModel;
 
+//attach processing to post payment action
 add_action('gform_post_payment_action', 'gfsi_process_submission', 10, 2);
+
+//add settings submenu page to form settings
+add_filter('gform_form_settings_menu', 'gfsi_add_custom_form_settings_menu_item');
+
+//set content for custom settings menu page
+add_action('gform_form_settings_page_gfsi_custom_form_settings_page', 'gfsi_custom_form_settings_page' );
+
+//save custom setting
+//add_filter('gform_form_settings_before_save', 'gfsi_save_custom_form_setting');
 //add_action('gform_after_submission', 'gfsi_process_submission', 10, 2);
 
 function gfsi_process_submission($entry, $action) {
@@ -50,6 +60,41 @@ function gfsi_process_submission($entry, $action) {
     echo '</pre>';*/
 }
 
+// add a custom menu item to the Form Settings page menu
+function gfsi_add_custom_form_settings_menu_item( $menu_items ) {
+    
+    $menu_items[] = array(
+        'name' => 'gfsi_custom_form_settings_page',
+        'label' => __( 'BC SQL Server Data Integration' )
+        );
+    
+    return $menu_items;
+}
+
+// handle displaying content for our custom menu when selected
+function gfsi_custom_form_settings_page() {
+    
+    if ( current_user_can('manage_site') ) {
+        $form_id = isset( $_GET['id'] ) ? $_GET['id'] : null;
+        if ( $form = GFFormsModel::get_form_meta( $form_id ) ) {
+            //echo '<pre>'; var_dump($form); echo '</pre>';
+            GFFormSettings::page_header();
+        
+            include dirname( __FILE__ ) . '/content/sqlserver-integration-menu-page.php';
+
+            GFFormSettings::page_footer();
+
+        }
+    } else {
+        echo __("You do not have the correct permissions to update this setting.");
+    }
+    
+}
+
+/*function gfsi_save_custom_form_setting($form) {
+    $form['gfsi_sqlserver_model'] = rgpost('gfsi_custom_setting_mssql_model');
+    return $form;
+}*/
 /*function gfsi_autoload($class) 
 {
     //see if the file exsists
