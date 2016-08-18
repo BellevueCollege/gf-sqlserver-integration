@@ -13,6 +13,7 @@ defined ( 'ABSPATH' ) OR exit;
 
 require_once('config.php');
 require_once( 'classes/InteriorDesignBA.php' );
+require_once( 'classes/Transaction.php' );
 
 //attach processing to post payment action
 add_action('gform_post_payment_action', 'gfsi_process_submission', 10, 2);

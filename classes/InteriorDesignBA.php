@@ -29,7 +29,6 @@ class InteriorDesignBA
         $conn = $db->getDB();
         var_dump($conn);
         if ( $conn ) {
-            echo "there is a connection";
             try {
                 $tsql = 'EXEC [usp_InsertIntoBAInteriorDesignForm]'
                             . '@TransID = :TransID,'
@@ -67,16 +66,14 @@ class InteriorDesignBA
                                     );
                     
                     $result = $query->execute($input_data);
-                    var_dump($result);
-                    var_dump($conn->errorCode());
-                    var_dump($conn->errorInfo());
+                    //var_dump($result);
+                    //var_dump($conn->errorCode());
+                    //var_dump($conn->errorInfo());
                     $result = $this->transaction->save();
                     return $result;
             } catch (PDOException $e) {
-                echo "pdoexception";
                 error_log( print_r("PDOException in InteriorDesignBA::save - " . $e->getMessage(), true) );
             } catch (Exception $e) {
-                echo "other exception";
                 error_log( print_r("General exception in InteriorDesignBA::save - " . $e->getMessage(), true) );
             }
         }       
@@ -95,7 +92,7 @@ class InteriorDesignBA
         $this->enroll_status = !empty($_entry['9']) ? rgar($_entry, '9') : null;
         $this->transcript_1 = !empty($_entry['14']) ? rgar($_entry, '14') : null;
         $this->transcript_2 = !empty($_entry['53']) ? rgar($_entry, '53') : null;
-        $this->transcript_3 = !empty($_entry['55']) ? rgar($_entry, '54') : null;
+        $this->transcript_3 = !empty($_entry['55']) ? rgar($_entry, '55') : null;
         $this->portfolio = !empty($_entry['24']) ? rgar($_entry, '24') : null;
         $this->signature = !empty($_entry['23']) ? rgar($_entry, '23') : null;
         $this->transaction = new Transaction(
@@ -223,12 +220,12 @@ class InteriorDesignBA
 		$this->signature = $_signature;
 	}
 
-	public function get_trans_id(){
-		return $this->trans_id;
+	public function get_transaction(){
+		return $this->transaction;
 	}
 
-	public function set_trans_id($_trans_id){
-		$this->trans_id = $_trans_id;
+	public function set_transaction($_trans){
+		$this->transaction = $_trans;
 	}
 
 	public function get_form_id(){
