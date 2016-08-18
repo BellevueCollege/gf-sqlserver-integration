@@ -11,13 +11,8 @@ GitHub Plugin URI: bellevuecollege/gf-sqlserver-integration
 
 defined ( 'ABSPATH' ) OR exit;
 
-//spl_autoload_register('gfsi_autoload');
 require_once('config.php');
-require_once( 'models/BaseModel.php' );
-require_once( 'models/Transaction.php' );
-
-//use Models\Transaction;
-//use Models\BaseModel;
+require_once( 'classes/InteriorDesignBA.php' );
 
 //attach processing to post payment action
 add_action('gform_post_payment_action', 'gfsi_process_submission', 10, 2);
@@ -38,26 +33,34 @@ function gfsi_process_submission($entry, $action) {
 	var_dump($entry);
 	echo '</pre>';*/
     GFCommon::log_debug( 'gform_post_payment_action: action =>' . print_r( $action, true ) );
+    $this_form = GFAPI::get_form(rgar($entry, 'form_id'));
+    $model_type = rgar($this_form, 'gfsi_model');
+
+    $model = null;
+    switch ($model_type) {
+        case 'InteriorDesignBA':
+            $model = new InteriorDesignBA();
+            break;
+        default:
+            # code...
+            break;
+    }
+
+    try {
+        $model->build($entry);
+        $model->save();
+        echo '<pre>';
+        var_dump($model);
+        echo '</pre>';
+    } catch (Exception $e) {
+        //some sort of datab
+    }
     /*$list_data = unserialize(rgar( $entry, '8'));
     echo '<pre>';
     var_dump($list_data);
     echo '</pre>';*/
 
-    $test = new BaseModel();
-    echo '<pre>';
-    var_dump($test->getDB());
-    echo '</pre>';
-    //$trans = new Transaction(1, 2, "Test", "Nicole" );
-    //$this_entry = GFAPI::get_entry(rgar($entry, 'id'));
-    //var_dump($this_entry);
-    /*echo '<pre>';
-    var_dump($form);
-    echo '</pre>';*/
-    //$entry = GFAPI::get_entry( $entry['id'] );
     GFCommon::log_debug( 'gform_post_payment_action: entry =>' . print_r( $entry, true ) );
-    /*echo '<pre>';
-    var_dump($entry);
-    echo '</pre>';*/
 }
 
 // add a custom menu item to the Form Settings page menu
@@ -90,20 +93,3 @@ function gfsi_custom_form_settings_page() {
     }
     
 }
-
-/*function gfsi_save_custom_form_setting($form) {
-    $form['gfsi_sqlserver_model'] = rgpost('gfsi_custom_setting_mssql_model');
-    return $form;
-}*/
-/*function gfsi_autoload($class) 
-{
-    //see if the file exsists
-    $class_path = "models/".$class.".php";
-    echo $class_path;
-    if(file_exists($class_path))
-    {
-        print_r($class);
-        include($class_path);
-        //only require the class once, so quit after to save effort (if you got more, then name them something else 
-    }            
-}*/

@@ -1,0 +1,157 @@
+<?php
+//namespace models;
+require_once('DB.php');
+//use BaseModel;
+
+class Transaction
+{
+    //private $db;    //db connection
+    protected $id;  //transaction id
+    protected $form_id; //ID of form transaction belongs to
+    protected $sid; //SID
+    protected $first_name;  //first name
+    protected $last_name;   //last name
+    protected $email;   //email
+    protected $amount;  //payment amount
+    protected $status;  //payment status
+    protected $authorization_date;  //authorization date of transaction
+    protected $settlement_date;     //settlement date of transaction
+    protected $billing_name;    //billing namespace
+    protected $billing_address_1;   //billing address line 1
+    protected $billing_address_2;   //billing address line 2
+    protected $billing_city;    //billing city
+    protected $billing_state;   //billing state
+    protected $billing_zip; //billing zip
+
+    public function __construct($_id, 
+                                $_form_id, 
+                                $_sid,
+                                $_first_name,
+                                $_last_name,
+                                $_email,
+                                $_amount,
+                                $_status,
+                                $_authorization_date,
+                                $_settlement_date,
+                                $_billing_name,
+                                $_billing_address_1,
+                                $_billing_address_2,
+                                $_billing_city,
+                                $_billing_state,
+                                $_billing_zip) {
+
+        $this->id = $_id;
+        $this->form_id = $_form_id;
+        $this->sid = $_sid;
+        $this->first_name = $_first_name;
+        $this->last_name = $_last_name;
+        $this->email = $_email;
+        $this->amount = $_amount;
+        $this->status = $_status;
+        $this->authorization_date = $_authorization_date;
+        $this->settlement_date = $_settlement_date;
+        $this->billing_name = $_billing_name;
+        $this->billing_address_1 = $_billing_address_1;
+        $this->billing_address_2 = $_billing_address_2;
+        $this->billing_city = $_billing_city;
+        $this->billing_state = $_billing_state;
+        $this->billing_zip = $_billing_zip;
+
+    }	
+
+    public function save() {
+        $db = new DB();
+        $conn = $db->getDB();
+        if ( $conn ) {
+            try {
+                $tsql = 'EXEC [usp_InsertTransactionDetails]'
+                        . '@TransID = :TransactionID,'
+                        . '@FormID = :FormID,'
+                        . '@SID = :SID,'
+                        . '@Fname = :FirstName,'
+                        . '@Lname = :LastName,'
+                        . '@Email = :Email,'
+                        . '@BillName = :BillingName,'
+                        . '@BillStreet1 = :BillingStreet1,'
+                        . '@BillStreet2 = :BillingStreet2,'
+                        . '@City = :City,'
+                        . '@State = :State,'
+                        . '@Zip = :Zip,'
+                        . '@PayAmt = :PaymentAmount,'
+                        . '@TransStatus = :TransactionStatus,'
+                        . '@SettleTime = :SettlementTime';
+                $query = $conn->prepare( $tsql );
+                $input_data = array( 
+                            'TransactionID' => $this->id,
+                            'FormID' => $this->form_id,
+                            'SID' => $this->sid,
+                            'FirstName' => $this->first_name,
+                            'LastName' => $this->last_name,
+                            'Email' => $this->email,
+                            'BillingName' => $this->billing_name,
+                            'BillingStreet1' => $this->billing_address_1,
+                            'BillingStreet2' => $this->billing_address_2,
+                            'City' => $this->billing_city,
+                            'State' => $this->billing_state,
+                            'Zip' => $this->billing_zip,
+                            'PaymentAmount' => $this->amount,
+                            'TransactionStatus' => $this->status,
+                            'SettlementTime' => $this->settlement_date,
+                        );
+        
+                $result = $query->execute($input_data);        
+                return $result;
+            } catch (PDOException $e){
+                error_log( print_r("PDOException in Transaction::save - " . $e->getMessage(), true) );
+            } catch (Exception $e) {
+                error_log( print_r("General exception in Transaction::save - " . $e->getMessage(), true) );
+            }
+        }
+        return false;
+    }	
+
+    public function get_first_name() {
+        return $this->first_name;
+    }
+
+	public function set_first_name($_first_name){
+		$this->first_name = $_first_name;
+	}
+
+	public function get_last_name(){
+		return $this->last_name;
+	}
+
+	public function set_last_name($_last_name){
+		$this->last_name = $_last_name;
+	}
+
+	public function get_sid(){
+		return $this->sid;
+	}
+
+	public function set_sid($_sid){
+		$this->sid = $_sid;
+	}
+
+	public function get_email(){
+		return $this->email;
+	}
+
+	public function set_email($_email){
+		$this->email = $_email;
+	}
+
+	public function get_phone(){
+		return $this->phone;
+	}
+
+	public function set_phone($_phone){
+		$this->phone = $_phone;
+	}	
+
+    public function get_id() {
+        return $this->id;
+    }
+		
+}
