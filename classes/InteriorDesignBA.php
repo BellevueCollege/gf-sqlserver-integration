@@ -106,14 +106,14 @@ class InteriorDesignBA
             rgar($_entry, 'payment_status'),
             rgar($_entry, 'payment_date'),
             null,
-            'blah',
+            null,
+            null,
             rgar($_entry, '57.1'),
             rgar($_entry, '57.2'),
             rgar($_entry, '57.3'),
             rgar($_entry, '57.4'),
             rgar($_entry, '57.5')
         );
-        //$this->trans_id = rgar($_entry, 'transaction_id');
     }
 
 	public function get_first_name(){

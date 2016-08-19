@@ -1,7 +1,6 @@
 <?php
-//namespace models;
+
 require_once('DB.php');
-//use BaseModel;
 
 class Transaction
 {
@@ -16,7 +15,8 @@ class Transaction
     protected $status;  //payment status
     protected $authorization_date;  //authorization date of transaction
     protected $settlement_date;     //settlement date of transaction
-    protected $billing_name;    //billing namespace
+    protected $billing_first_name;    //billing first name
+    protected $billing_last_name;   //billing last name
     protected $billing_address_1;   //billing address line 1
     protected $billing_address_2;   //billing address line 2
     protected $billing_city;    //billing city
@@ -33,7 +33,8 @@ class Transaction
                                 $_status,
                                 $_authorization_date,
                                 $_settlement_date,
-                                $_billing_name,
+                                $_billing_first_name,
+                                $_billing_last_name,
                                 $_billing_address_1,
                                 $_billing_address_2,
                                 $_billing_city,
@@ -50,7 +51,8 @@ class Transaction
         $this->status = $_status;
         $this->authorization_date = $_authorization_date;
         $this->settlement_date = $_settlement_date;
-        $this->billing_name = $_billing_name;
+        $this->billing_first_name = $_billing_first_name;
+        $this->billing_last_name = $_billing_last_name;
         $this->billing_address_1 = $_billing_address_1;
         $this->billing_address_2 = $_billing_address_2;
         $this->billing_city = $_billing_city;
@@ -64,42 +66,44 @@ class Transaction
         $conn = $db->getDB();
         if ( $conn ) {
             try {
+                echo 'have transaction connection';
                 $tsql = 'EXEC [usp_InsertTransactionDetails]'
+                        . '@TranStatus = :TransactionStatus,'
+                        . '@SettleTime = :SettlementTime,'
                         . '@TransID = :TransactionID,'
-                        . '@FormID = :FormID,'
-                        . '@SID = :SID,'
                         . '@Fname = :FirstName,'
                         . '@Lname = :LastName,'
-                        . '@Email = :Email,'
-                        . '@BillName = :BillingName,'
                         . '@BillStreet1 = :BillingStreet1,'
                         . '@BillStreet2 = :BillingStreet2,'
                         . '@City = :City,'
                         . '@State = :State,'
                         . '@Zip = :Zip,'
                         . '@PayAmt = :PaymentAmount,'
-                        . '@TransStatus = :TransactionStatus,'
-                        . '@SettleTime = :SettlementTime';
+                        . '@FormID = :FormID,'
+                        . '@SID = :SID,'
+                        . '@Email = :Email;';
                 $query = $conn->prepare( $tsql );
                 $input_data = array( 
+                            'TransactionStatus' => $this->status,
+                            'SettlementTime' => $this->settlement_date,
                             'TransactionID' => $this->id,
-                            'FormID' => $this->form_id,
-                            'SID' => $this->sid,
                             'FirstName' => $this->first_name,
                             'LastName' => $this->last_name,
-                            'Email' => $this->email,
-                            'BillingName' => $this->billing_name,
                             'BillingStreet1' => $this->billing_address_1,
                             'BillingStreet2' => $this->billing_address_2,
                             'City' => $this->billing_city,
                             'State' => $this->billing_state,
                             'Zip' => $this->billing_zip,
                             'PaymentAmount' => $this->amount,
-                            'TransactionStatus' => $this->status,
-                            'SettlementTime' => $this->settlement_date,
+                            'FormID' => $this->form_id,
+                            'SID' => $this->sid,
+                            'Email' => $this->email
                         );
         
-                $result = $query->execute($input_data);        
+                $result = $query->execute($input_data);      
+                var_dump($result);
+                var_dump($conn->errorCode());
+                var_dump($conn->errorInfo());  
                 return $result;
             } catch (PDOException $e){
                 error_log( print_r("PDOException in Transaction::save - " . $e->getMessage(), true) );
