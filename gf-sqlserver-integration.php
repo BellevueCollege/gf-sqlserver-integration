@@ -12,8 +12,9 @@ GitHub Plugin URI: bellevuecollege/gf-sqlserver-integration
 defined ( 'ABSPATH' ) OR exit;
 
 require_once('config.php');
-require_once( 'classes/InteriorDesignBA.php' );
 require_once( 'classes/Transaction.php' );
+require_once( 'classes/InteriorDesignBA.php' );
+require_once( 'classes/IST_BAS.php' );
 
 //attach processing to post payment action
 add_action('gform_post_payment_action', 'gfsi_process_submission', 10, 2);
@@ -41,6 +42,9 @@ function gfsi_process_submission($entry, $action) {
     switch ($model_type) {
         case 'InteriorDesignBA':
             $model = new InteriorDesignBA();
+            break;
+        case 'IST_BAS':
+            $model = new IST_BAS();
             break;
         default:
             # code...
