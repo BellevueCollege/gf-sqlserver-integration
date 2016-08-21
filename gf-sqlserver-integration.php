@@ -13,6 +13,7 @@ defined ( 'ABSPATH' ) OR exit;
 
 require_once('config.php');
 require_once( 'classes/Transaction.php' );
+require_once( 'classes/AppliedAccounting_BAS.php');
 require_once( 'classes/DataAnalytics_BAS.php' );
 require_once( 'classes/InteriorDesignBA.php' );
 require_once( 'classes/IST_BAS.php' );
@@ -49,6 +50,9 @@ function gfsi_process_submission($entry, $action) {
             break;
         case 'DataAnalytics_BAS':
             $model = new DataAnalytics_BAS();
+            break;
+        case 'AppliedAccounting_BAS':
+            $model = new AppliedAccounting_BAS();
             break;
         default:
             # code...
