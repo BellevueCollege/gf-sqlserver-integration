@@ -6,7 +6,15 @@ define ('DATABASE_USER', '');
 define ('DATABASE_PASSWORD', '');
 
 /* Set models available to which forms can be attached */
-define ('SQLSERVER_MODELS', array());
+define ('SQLSERVER_MODELS', array('InteriorDesignBA', 
+                'IST_BAS', 
+                'DataAnalytics_BAS', 
+                'AppliedAccounting_BAS',
+                'HealthcareInformatics_BAS',
+                'HealthcarePromotion_BAS',
+                'HealthcareManagement_BAS',
+                'RadiationImaging_BAS'
+                ));
 
 /* Set nonce values */
 define ('NONCE_ACTION', '' );
