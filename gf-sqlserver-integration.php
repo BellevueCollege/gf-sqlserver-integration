@@ -16,6 +16,7 @@ require_once( 'classes/Transaction.php' );
 require_once( 'classes/AppliedAccounting_BAS.php');
 require_once( 'classes/DataAnalytics_BAS.php' );
 require_once( 'classes/HealthcareInformatics_BAS.php' );
+require_once( 'classes/HealthcareManagement_BAS.php' );
 require_once( 'classes/HealthcarePromotion_BAS.php' );
 require_once( 'classes/InteriorDesignBA.php' );
 require_once( 'classes/IST_BAS.php' );
@@ -61,6 +62,9 @@ function gfsi_process_submission($entry, $action) {
             break;
         case 'HealthcarePromotion_BAS':
             $model = new HealthcarePromotion_BAS();
+            break;
+        case 'HealthcareManagement_BAS':
+            $model = new HealthcareManagement_BAS();
             break;
         default:
             # code...
