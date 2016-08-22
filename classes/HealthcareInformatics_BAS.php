@@ -202,45 +202,45 @@ class HealthcareInformatics_BAS
         $this->phone = !empty($_entry['5']) ? rgar($_entry, '5') : null;
         $this->enroll_status = !empty($_entry['9']) ? rgar($_entry, '9') : null;
 
-        $this->req1_howmeet = !empty($_entry['25']) ? rgar($_entry, '25') : null;;
-        $this->req1_school = !empty($_entry['24']) ? rgar($_entry, '24') : null;;
-        $this->req1_degree = !empty($_entry['26']) ? rgar($_entry, '26') : null;;
-        $this->req1_courses = !empty($_entry['27']) ? rgar($_entry, '27') : null;;
+        $this->req1_howmeet = !empty($_entry['25']) ? rgar($_entry, '25') : null;
+        $this->req1_school = !empty($_entry['24']) ? rgar($_entry, '24') : null;
+        $this->req1_degree = !empty($_entry['26']) ? rgar($_entry, '26') : null;
+        $this->req1_courses = !empty($_entry['27']) ? rgar($_entry, '27') : null;
 
-        $this->req2_course = !empty($_entry['29']) ? rgar($_entry, '29') : null;;
-        $this->req2_quarter = !empty($_entry['30']) ? rgar($_entry, '30') : null;;
-        $this->req2_grade = !empty($_entry['31']) ? rgar($_entry, '31') : null;;
-        $this->req2_school = !empty($_entry['32']) ? rgar($_entry, '32') : null;;
+        $this->req2_course = !empty($_entry['29']) ? rgar($_entry, '29') : null;
+        $this->req2_quarter = !empty($_entry['30']) ? rgar($_entry, '30') : null;
+        $this->req2_grade = !empty($_entry['31']) ? rgar($_entry, '31') : null;
+        $this->req2_school = !empty($_entry['32']) ? rgar($_entry, '32') : null;
 
-        $this->req3_course = !empty($_entry['34']) ? rgar($_entry, '34') : null;;
-        $this->req3_quarter = !empty($_entry['35']) ? rgar($_entry, '35') : null;;
-        $this->req3_grade = !empty($_entry['36']) ? rgar($_entry, '36') : null;;
-        $this->req3_school = !empty($_entry['37']) ? rgar($_entry, '37') : null;;
+        $this->req3_course = !empty($_entry['34']) ? rgar($_entry, '34') : null;
+        $this->req3_quarter = !empty($_entry['35']) ? rgar($_entry, '35') : null;
+        $this->req3_grade = !empty($_entry['36']) ? rgar($_entry, '36') : null;
+        $this->req3_school = !empty($_entry['37']) ? rgar($_entry, '37') : null;
 
-        $this->req4_course = !empty($_entry['39']) ? rgar($_entry, '39') : null;;
-        $this->req4_quarter = !empty($_entry['40']) ? rgar($_entry, '40') : null;;
-        $this->req4_grade = !empty($_entry['41']) ? rgar($_entry, '41') : null;;
-        $this->req4_school = !empty($_entry['42']) ? rgar($_entry, '42') : null;;
+        $this->req4_course = !empty($_entry['39']) ? rgar($_entry, '39') : null;
+        $this->req4_quarter = !empty($_entry['40']) ? rgar($_entry, '40') : null;
+        $this->req4_grade = !empty($_entry['41']) ? rgar($_entry, '41') : null;
+        $this->req4_school = !empty($_entry['42']) ? rgar($_entry, '42') : null;
 
-        $this->req5_course = !empty($_entry['44']) ? rgar($_entry, '44') : null;;
-        $this->req5_quarter = !empty($_entry['45']) ? rgar($_entry, '45') : null;;
-        $this->req5_grade = !empty($_entry['46']) ? rgar($_entry, '46') : null;;
-        $this->req5_school = !empty($_entry['47']) ? rgar($_entry, '47') : null;;    
+        $this->req5_course = !empty($_entry['44']) ? rgar($_entry, '44') : null;
+        $this->req5_quarter = !empty($_entry['45']) ? rgar($_entry, '45') : null;
+        $this->req5_grade = !empty($_entry['46']) ? rgar($_entry, '46') : null;
+        $this->req5_school = !empty($_entry['47']) ? rgar($_entry, '47') : null;    
 
-        $this->req6_course = !empty($_entry['49']) ? rgar($_entry, '49') : null;;
-        $this->req6_quarter = !empty($_entry['50']) ? rgar($_entry, '50') : null;;
-        $this->req6_grade = !empty($_entry['51']) ? rgar($_entry, '51') : null;;
-        $this->req6_school = !empty($_entry['52']) ? rgar($_entry, '52') : null;;
+        $this->req6_course = !empty($_entry['49']) ? rgar($_entry, '49') : null;
+        $this->req6_quarter = !empty($_entry['50']) ? rgar($_entry, '50') : null;
+        $this->req6_grade = !empty($_entry['51']) ? rgar($_entry, '51') : null;
+        $this->req6_school = !empty($_entry['52']) ? rgar($_entry, '52') : null;
 
-        $this->req7_lab_course = !empty($_entry['54']) ? rgar($_entry, '54') : null;;
-        $this->req7_lab_quarter = !empty($_entry['55']) ? rgar($_entry, '55') : null;;
-        $this->req7_lab_grade = !empty($_entry['56']) ? rgar($_entry, '56') : null;;
-        $this->req7_lab_school = !empty($_entry['57']) ? rgar($_entry, '57') : null;;
+        $this->req7_lab_course = !empty($_entry['54']) ? rgar($_entry, '54') : null;
+        $this->req7_lab_quarter = !empty($_entry['55']) ? rgar($_entry, '55') : null;
+        $this->req7_lab_grade = !empty($_entry['56']) ? rgar($_entry, '56') : null;
+        $this->req7_lab_school = !empty($_entry['57']) ? rgar($_entry, '57') : null;
 
-        $this->req7_life_course = !empty($_entry['58']) ? rgar($_entry, '58') : null;;
-        $this->req7_life_quarter = !empty($_entry['59']) ? rgar($_entry, '59') : null;;
-        $this->req7_life_grade = !empty($_entry['60']) ? rgar($_entry, '60') : null;;
-        $this->req7_life_school = !empty($_entry['61']) ? rgar($_entry, '61') : null;;
+        $this->req7_life_course = !empty($_entry['58']) ? rgar($_entry, '58') : null;
+        $this->req7_life_quarter = !empty($_entry['59']) ? rgar($_entry, '59') : null;
+        $this->req7_life_grade = !empty($_entry['60']) ? rgar($_entry, '60') : null;
+        $this->req7_life_school = !empty($_entry['61']) ? rgar($_entry, '61') : null;
 
         $this->personal_stmt = !empty($_entry['12']) ? rgar($_entry, '12') : null;
         $this->signature = !empty($_entry['23']) ? rgar($_entry, '23') : null;
