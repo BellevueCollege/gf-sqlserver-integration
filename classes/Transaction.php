@@ -101,9 +101,9 @@ class Transaction
                         );
         
                 $result = $query->execute($input_data);      
-                var_dump($result);
-                var_dump($conn->errorCode());
-                var_dump($conn->errorInfo());  
+                //var_dump($result);
+                //var_dump($conn->errorCode());
+                //var_dump($conn->errorInfo());  
                 return $result;
             } catch (PDOException $e){
                 error_log( print_r("PDOException in Transaction::save - " . $e->getMessage(), true) );
