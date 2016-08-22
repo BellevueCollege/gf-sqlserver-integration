@@ -66,7 +66,7 @@ class Transaction
         $conn = $db->getDB();
         if ( $conn ) {
             try {
-                echo 'have transaction connection';
+                //echo 'have transaction connection';
                 $tsql = 'EXEC [usp_InsertTransactionDetails]'
                         . '@TranStatus = :TransactionStatus,'
                         . '@SettleTime = :SettlementTime,'
