@@ -20,6 +20,7 @@ require_once( 'classes/HealthcareManagement_BAS.php' );
 require_once( 'classes/HealthcarePromotion_BAS.php' );
 require_once( 'classes/InteriorDesignBA.php' );
 require_once( 'classes/IST_BAS.php' );
+require_once( 'classes/RadiationImaging_BAS.php' );
 
 //attach processing to post payment action
 add_action('gform_post_payment_action', 'gfsi_process_submission', 10, 2);
@@ -65,6 +66,9 @@ function gfsi_process_submission($entry, $action) {
             break;
         case 'HealthcareManagement_BAS':
             $model = new HealthcareManagement_BAS();
+            break;
+        case 'RadiationImaging_BAS':
+            $model = new RadiationImaging_BAS();
             break;
         default:
             # code...
