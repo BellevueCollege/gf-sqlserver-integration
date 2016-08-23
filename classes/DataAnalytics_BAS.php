@@ -19,7 +19,7 @@ class DataAnalytics_BAS
     protected $personal_stmt;
     protected $signature;
     protected $transaction;
-    const FORM_ID = 9;  //as set in SQL Server forms table
+    protected $form_id;
     
     public function __construct() {
 
@@ -28,7 +28,6 @@ class DataAnalytics_BAS
     public function save() {
         $db = new DB();
         $conn = $db->getDB();
-        //var_dump($conn);
         //echo "<pre>Input encoding: " . mb_detect_encoding($this->first_name) . "</pre>";
         //echo "<pre>Textarea encoding: " . mb_detect_encoding($this->personal_stmt) . "</pre>";
         if ( $conn ) {
@@ -52,7 +51,7 @@ class DataAnalytics_BAS
                             . '@EnrollmentStatus = :EnrollmentStatus,'
                             . '@ElectronicSignature = :ElectronicSignature;';
                     $query = $conn->prepare( $tsql );
-                    //var_dump($query);
+
                     $input_data = array( 
                                         'TransID' => $this->transaction->get_id(), 
                                         'FirstName' => $this->first_name,
@@ -71,9 +70,7 @@ class DataAnalytics_BAS
                                         'EnrollmentStatus' => $this->enroll_status,
                                         'ElectronicSignature' => $this->signature
                                     );
-                    /*echo '<pre>';
-                    var_dump($input_data);
-                    echo '</pre>';*/
+
                     $result = $query->execute($input_data);
                     //var_dump($result);
                     //var_dump($conn->errorCode());
@@ -105,9 +102,11 @@ class DataAnalytics_BAS
         $this->transcript_3 = !empty($_entry['57']) ? rgar($_entry, '57') : null;
         $this->personal_stmt = !empty($_entry['12']) ? rgar($_entry, '12') : null;
         $this->signature = !empty($_entry['23']) ? rgar($_entry, '23') : null;
+        $this->form_id = rgar($_entry, 'form_id');
+
         $this->transaction = new Transaction(
             rgar($_entry, 'transaction_id'),
-            self::FORM_ID,
+            $this->form_id,
             $this->sid,
             $this->first_name,
             $this->last_name,
@@ -131,7 +130,7 @@ class DataAnalytics_BAS
 	}
 
 	public function get_form_id(){
-		return self::FORM_ID;
+		return $this->form_id;
 	}
 
 }

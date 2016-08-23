@@ -23,7 +23,7 @@ class IST_BAS
     protected $personal_stmt;
     protected $signature;
     protected $transaction;
-    const FORM_ID = 10;
+    protected $form_id;
     
     public function __construct() {
 
@@ -123,9 +123,11 @@ class IST_BAS
         $this->transcript_3 = !empty($_entry['66']) ? rgar($_entry, '66') : null;
         $this->personal_stmt = !empty($_entry['12']) ? rgar($_entry, '12') : null;
         $this->signature = !empty($_entry['23']) ? rgar($_entry, '23') : null;
+        $this->form_id = rgar($_entry, 'form_id');
+
         $this->transaction = new Transaction(
             rgar($_entry, 'transaction_id'),
-            self::FORM_ID,
+            $this->form_id,
             $this->sid,
             $this->first_name,
             $this->last_name,

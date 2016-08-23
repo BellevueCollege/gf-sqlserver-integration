@@ -18,7 +18,7 @@ class InteriorDesign_BA
     protected $portfolio;
     protected $signature;
     protected $transaction;
-    const FORM_ID = 7;
+    protected $form_id;
     
     public function __construct() {
 
@@ -94,9 +94,11 @@ class InteriorDesign_BA
         $this->transcript_3 = !empty($_entry['55']) ? rgar($_entry, '55') : null;
         $this->portfolio = !empty($_entry['24']) ? rgar($_entry, '24') : null;
         $this->signature = !empty($_entry['23']) ? rgar($_entry, '23') : null;
+        $this->form_id = rgar($_entry, 'form_id');
+
         $this->transaction = new Transaction(
             rgar($_entry, 'transaction_id'),
-            self::FORM_ID,
+            $this->form_id,
             $this->sid,
             $this->first_name,
             $this->last_name,
@@ -228,7 +230,7 @@ class InteriorDesign_BA
 	}
 
 	public function get_form_id(){
-		return self::FORM_ID;
+		return $this->form_id;
 	}
 
 }
