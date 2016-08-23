@@ -2,7 +2,7 @@
 require_once('DB.php');
 require_once('Transaction.php');
 
-class InteriorDesignBA
+class InteriorDesign_BA
 {
     protected $first_name;
     protected $last_name;

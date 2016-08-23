@@ -18,7 +18,7 @@ require_once( 'classes/DataAnalytics_BAS.php' );
 require_once( 'classes/HealthcareInformatics_BAS.php' );
 require_once( 'classes/HealthcareManagement_BAS.php' );
 require_once( 'classes/HealthcarePromotion_BAS.php' );
-require_once( 'classes/InteriorDesignBA.php' );
+require_once( 'classes/InteriorDesign_BA.php' );
 require_once( 'classes/IST_BAS.php' );
 require_once( 'classes/MolecularBiosciences_BAS.php' );
 require_once( 'classes/Nursing_RN_BSN.php' );
@@ -48,8 +48,8 @@ function gfsi_process_submission($entry, $action) {
 
     $model = null;
     switch ($model_type) {
-        case 'InteriorDesignBA':
-            $model = new InteriorDesignBA();
+        case 'InteriorDesign_BA':
+            $model = new InteriorDesign_BA();
             break;
         case 'IST_BAS':
             $model = new IST_BAS();
