@@ -14,7 +14,8 @@ define ('SQLSERVER_MODELS', array('InteriorDesignBA',
                 'HealthcarePromotion_BAS',
                 'HealthcareManagement_BAS',
                 'RadiationImaging_BAS',
-                'MolecularBiosciences_BAS'
+                'MolecularBiosciences_BAS',
+                'Nursing_RN_BSN'
                 ));
 
 /* Set nonce values */

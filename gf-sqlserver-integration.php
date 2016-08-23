@@ -21,6 +21,7 @@ require_once( 'classes/HealthcarePromotion_BAS.php' );
 require_once( 'classes/InteriorDesignBA.php' );
 require_once( 'classes/IST_BAS.php' );
 require_once( 'classes/MolecularBiosciences_BAS.php' );
+require_once( 'classes/Nursing_RN_BSN.php' );
 require_once( 'classes/RadiationImaging_BAS.php' );
 
 //attach processing to post payment action
@@ -73,6 +74,9 @@ function gfsi_process_submission($entry, $action) {
             break;
         case 'MolecularBiosciences_BAS':
             $model = new MolecularBiosciences_BAS();
+            break;
+        case 'Nursing_RN_BSN':
+            $model = new Nursing_RN_BSN();
             break;
         default:
             # code...
