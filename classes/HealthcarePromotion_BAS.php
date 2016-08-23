@@ -27,7 +27,6 @@ class HealthcarePromotion_BAS
     public function save() {
         $db = new DB();
         $conn = $db->getDB();
-        //var_dump($conn);
         //echo "<pre>Input encoding: " . mb_detect_encoding($this->first_name) . "</pre>";
         //echo "<pre>Textarea encoding: " . mb_detect_encoding($this->personal_stmt) . "</pre>";
         if ( $conn ) {

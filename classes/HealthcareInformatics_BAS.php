@@ -63,7 +63,6 @@ class HealthcareInformatics_BAS
     public function save() {
         $db = new DB();
         $conn = $db->getDB();
-        //var_dump($conn);
         //echo "<pre>Input encoding: " . mb_detect_encoding($this->first_name) . "</pre>";
         //echo "<pre>Textarea encoding: " . mb_detect_encoding($this->personal_stmt) . "</pre>";
         if ( $conn ) {
@@ -122,7 +121,7 @@ class HealthcareInformatics_BAS
                             . '@FormID = :FormID,'
                             . '@ElectronicSignature = :ElectronicSignature;';
                     $query = $conn->prepare( $tsql );
-                    //var_dump($query);
+
                     $input_data = array( 
                                         'SID' => $this->sid,
                                         'FirstName' => $this->first_name,
@@ -176,14 +175,11 @@ class HealthcareInformatics_BAS
                                         'FormID' => $this->form_id,
                                         'ElectronicSignature' => $this->signature
                                     );
-                    /*echo '<pre>';
-                    var_dump($input_data);
-                    echo '</pre>';*/
+
                     $result = $query->execute($input_data);
                     //var_dump($result);
                     //var_dump($conn->errorCode());
                     //var_dump($conn->errorInfo());
-                    //$result = $this->transaction->save();
                     return $result;
             } catch (PDOException $e) {
                 error_log( print_r("PDOException in HealthcareInformatics_BAS::save - " . $e->getMessage(), true) );
