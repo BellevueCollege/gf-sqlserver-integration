@@ -32,6 +32,7 @@ class HealthcarePromotion_BAS
         //echo "<pre>Textarea encoding: " . mb_detect_encoding($this->personal_stmt) . "</pre>";
         if ( $conn ) {
             try {
+                $result = $this->transaction->save();   //save transaction first because of db constraint on trans id
                 $tsql = 'EXEC [usp_InsertIntoHealthcarePromoAndMngmtForm]'
                             . '@TransID = :TransID,'
                             . '@Fname = :FirstName,'
@@ -49,7 +50,7 @@ class HealthcarePromotion_BAS
                             . '@UnofficialTrans3 = :UnofficialTranscript3,'
                             . '@ElectronicSignature = :ElectronicSignature;';
                     $query = $conn->prepare( $tsql );
-                    //var_dump($query);
+
                     $input_data = array( 
                                         'TransID' => $this->transaction->get_id(), 
                                         'FirstName' => $this->first_name,
@@ -67,14 +68,11 @@ class HealthcarePromotion_BAS
                                         'UnofficialTranscript3' => $this->transcript_3,
                                         'ElectronicSignature' => $this->signature
                                     );
-                    /*echo '<pre>';
-                    var_dump($input_data);
-                    echo '</pre>';*/
+
                     $result = $query->execute($input_data);
                     //var_dump($result);
                     //var_dump($conn->errorCode());
                     //var_dump($conn->errorInfo());
-                    $result = $this->transaction->save();
                     return $result;
             } catch (PDOException $e) {
                 error_log( print_r("PDOException in HealthcarePromotion_BAS::save - " . $e->getMessage(), true) );

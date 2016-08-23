@@ -57,7 +57,6 @@ class RadiationImaging_BAS
                             . '@EnrollmentStatus = :EnrollmentStatus,'
                             . '@ElectronicSignature = :ElectronicSignature;';
                     $query = $conn->prepare( $tsql );
-                    //var_dump($query);
                     $input_data = array( 
                                     'TransID' => $this->transaction->get_id(), 
                                     'FirstName' => $this->first_name,
@@ -78,14 +77,12 @@ class RadiationImaging_BAS
                                     'EnrollmentStatus' => $this->enroll_status,
                                     'ElectronicSignature' => $this->signature
                                 );
-                    /*echo '<pre>';
-                    var_dump($input_data);
-                    echo '</pre>';*/
+
                     $result = $query->execute($input_data);
                     //var_dump($result);
                     //var_dump($conn->errorCode());
                     //var_dump($conn->errorInfo());
-                    //$result = $this->transaction->save();
+
                     return $result;
             } catch (PDOException $e) {
                 error_log( print_r("PDOException in RadiationImaging_BAS::save - " . $e->getMessage(), true) );

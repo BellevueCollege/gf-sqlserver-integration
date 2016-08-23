@@ -27,9 +27,10 @@ class InteriorDesignBA
     public function save() {
         $db = new DB();
         $conn = $db->getDB();
-        var_dump($conn);
+
         if ( $conn ) {
             try {
+                $result = $this->transaction->save();   //save transaction first because of db constraint on trans id
                 $tsql = 'EXEC [usp_InsertIntoBAInteriorDesignForm]'
                             . '@TransID = :TransID,'
                             . '@Fname = :FirstName,'
@@ -47,7 +48,6 @@ class InteriorDesignBA
                             . '@EnrollmentStatus = :EnrollmentStatus,'
                             . '@ElectronicSignature = :ElectronicSignature;';
                     $query = $conn->prepare( $tsql );
-                    var_dump($query);
                     $input_data = array( 'SID' => $this->sid,
                                         'FirstName' => $this->first_name,
                                         'LastName' => $this->last_name, 
@@ -69,7 +69,6 @@ class InteriorDesignBA
                     //var_dump($result);
                     //var_dump($conn->errorCode());
                     //var_dump($conn->errorInfo());
-                    $result = $this->transaction->save();
                     return $result;
             } catch (PDOException $e) {
                 error_log( print_r("PDOException in InteriorDesignBA::save - " . $e->getMessage(), true) );

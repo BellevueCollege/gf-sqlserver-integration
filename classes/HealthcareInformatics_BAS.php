@@ -68,6 +68,7 @@ class HealthcareInformatics_BAS
         //echo "<pre>Textarea encoding: " . mb_detect_encoding($this->personal_stmt) . "</pre>";
         if ( $conn ) {
             try {
+                $result = $this->transaction->save();   //save transaction first because of db constraint on trans id
                 $tsql = 'EXEC [usp_InsertIntoHealthCareInformaticsForm]'
                             . '@SID = :SID,'
                             . '@Fname = :FirstName,'
@@ -182,7 +183,7 @@ class HealthcareInformatics_BAS
                     //var_dump($result);
                     //var_dump($conn->errorCode());
                     //var_dump($conn->errorInfo());
-                    $result = $this->transaction->save();
+                    //$result = $this->transaction->save();
                     return $result;
             } catch (PDOException $e) {
                 error_log( print_r("PDOException in HealthcareInformatics_BAS::save - " . $e->getMessage(), true) );

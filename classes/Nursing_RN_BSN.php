@@ -31,7 +31,6 @@ class Nursing_RN_BSN
     public function save() {
         $db = new DB();
         $conn = $db->getDB();
-        //var_dump($conn);
         //echo "<pre>Input encoding: " . mb_detect_encoding($this->first_name) . "</pre>";
         //echo "<pre>Textarea encoding: " . mb_detect_encoding($this->personal_stmt) . "</pre>";
         if ( $conn ) {
@@ -58,7 +57,6 @@ class Nursing_RN_BSN
                             . '@EnrollmentStatus = :EnrollmentStatus,'
                             . '@ElectronicSignature = :ElectronicSignature;';
                     $query = $conn->prepare( $tsql );
-                    //var_dump($query);
                     $input_data = array( 
                                         'TransID' => $this->transaction->get_id(), 
                                         'FirstName' => $this->first_name,
@@ -80,9 +78,7 @@ class Nursing_RN_BSN
                                         'EnrollmentStatus' => $this->enroll_status,
                                         'ElectronicSignature' => $this->signature
                                     );
-                    /*echo '<pre>';
-                    var_dump($input_data);
-                    echo '</pre>';*/
+
                     $result = $query->execute($input_data);
                     //var_dump($result);
                     //var_dump($conn->errorCode());

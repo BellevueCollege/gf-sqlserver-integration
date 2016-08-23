@@ -32,9 +32,10 @@ class IST_BAS
     public function save() {
         $db = new DB();
         $conn = $db->getDB();
-        //var_dump($conn);
+
         if ( $conn ) {
             try {
+                $result = $this->transaction->save();   //save transaction first because of db constraint on trans id
                 $tsql = 'EXEC [usp_InsertIntoInfoSystemsNTechnologyForm]'
                             . '@TransID = :TransID,'
                             . '@Fname = :FirstName,'
@@ -84,7 +85,6 @@ class IST_BAS
                     //var_dump($result);
                     //var_dump($conn->errorCode());
                     //var_dump($conn->errorInfo());
-                    $result = $this->transaction->save();
                     return $result;
             } catch (PDOException $e) {
                 error_log( print_r("PDOException in IST_BAS::save - " . $e->getMessage(), true) );

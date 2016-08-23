@@ -32,6 +32,7 @@ class HealthcareManagement_BAS
         //echo "<pre>Textarea encoding: " . mb_detect_encoding($this->personal_stmt) . "</pre>";
         if ( $conn ) {
             try {
+                $result = $this->transaction->save();   //save transaction first because of db constraint on trans id
                 $tsql = 'EXEC [usp_InsertIntoHealthcareMngmtAndLeadershipForm]'
                             . '@TransID = :TransID,'
                             . '@Fname = :FirstName,'
@@ -67,14 +68,11 @@ class HealthcareManagement_BAS
                                         'PersonalStatement' => $this->personal_stmt,
                                         'ElectronicSignature' => $this->signature
                                     );
-                    /*echo '<pre>';
-                    var_dump($input_data);
-                    echo '</pre>';*/
+
                     $result = $query->execute($input_data);
                     //var_dump($result);
                     //var_dump($conn->errorCode());
                     //var_dump($conn->errorInfo());
-                    $result = $this->transaction->save();
                     return $result;
             } catch (PDOException $e) {
                 error_log( print_r("PDOException in HealthcareManagement_BAS::save - " . $e->getMessage(), true) );
