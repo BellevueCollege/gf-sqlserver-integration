@@ -34,7 +34,9 @@ if ( isset( $_POST['gfsi_save_settings'] ) ) {
                     <?php 
                     //$model_setting = get_option('gfsi_model_settings');
                     //$cur_setting = null !== get_option(rgar($form, 'gfsi_model_setting') ? rgar($form, 'gfsi_model_setting') : ""; 
-                    foreach ( SQLSERVER_MODELS as $model ) {
+                    $models_array = explode(",", SQLSERVER_MODELS);
+                    foreach ( $models_array as $model ) {
+                        $model = trim($model); //just in case something crept in
                         $selected = ( isset($form["gfsi_model"]) && $model == $form["gfsi_model"]) ? "selected" : "";
                     ?>
                         <option value="<?php echo $model; ?>" <?php echo $selected; ?> ><?php echo $model; ?></option>
