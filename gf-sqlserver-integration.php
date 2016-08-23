@@ -39,13 +39,13 @@ add_action('gform_form_settings_page_gfsi_custom_form_settings_page', 'gfsi_cust
 
 function gfsi_process_submission($entry, $action) {
 
-    /*echo '<pre>';
-	var_dump($entry);
-	echo '</pre>';*/
     GFCommon::log_debug( 'gform_post_payment_action: action =>' . print_r( $action, true ) );
-    $this_form = GFAPI::get_form(rgar($entry, 'form_id'));
+
+    // Get form info so we can get the model type assigned to it 
+    $this_form = GFAPI::get_form(rgar($entry, 'form_id'));  
     $model_type = rgar($this_form, 'gfsi_model');
 
+    //Instantiate model based on the model type set for the form
     $model = null;
     switch ($model_type) {
         case 'InteriorDesign_BA':
@@ -79,23 +79,23 @@ function gfsi_process_submission($entry, $action) {
             $model = new Nursing_RN_BSN();
             break;
         default:
-            # code...
             break;
     }
 
+    //If defined, build the chosen model from the form entry data
     try {
-        $model->build($entry);
-        $model->save();
-        echo '<pre>';
-        var_dump($model);
-        echo '</pre>';
-    } catch (Exception $e) {
-        //some sort of datab
+        if ( !empty($model) ) {
+            $model->build($entry);
+            $model->save();
+            echo '<pre>';
+            var_dump($model);
+            echo '</pre>';
+        } else {
+            throw new Exception("Model is empty, likely no data model set for form " . $this_form["title"]);
+        } 
+    } catch ( Exception $e ) {
+        error_log( print_r("GF SQL Server Integration plugin :: error building and saving model - " . $e->getMessage(), true) );
     }
-    /*$list_data = unserialize(rgar( $entry, '8'));
-    echo '<pre>';
-    var_dump($list_data);
-    echo '</pre>';*/
 
     GFCommon::log_debug( 'gform_post_payment_action: entry =>' . print_r( $entry, true ) );
 }
