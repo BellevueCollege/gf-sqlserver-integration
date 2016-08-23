@@ -75,7 +75,6 @@ class DataAnalytics_BAS
                     //var_dump($result);
                     //var_dump($conn->errorCode());
                     //var_dump($conn->errorInfo());
-                    //$result = $this->transaction->save();
                     return $result;
             } catch (PDOException $e) {
                 error_log( print_r("PDOException in DataAnalytics_BAS::save - " . $e->getMessage(), true) );
