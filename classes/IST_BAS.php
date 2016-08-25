@@ -62,7 +62,7 @@ class IST_BAS
                                         'TransID' => $this->transaction->get_id(), 
                                         'FirstName' => $this->first_name,
                                         'LastName' => $this->last_name, 
-                                        'FormID' => self::FORM_ID,
+                                        'FormID' => $this->form_id,
                                         'SID' => $this->sid,
                                         'BCEmail' => $this->email,
                                         'PersonalEmail' => $this->pers_email,

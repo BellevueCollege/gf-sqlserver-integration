@@ -62,7 +62,7 @@ class InteriorDesign_BA
                                         'PortfolioFile' => $this->portfolio,
                                         'ElectronicSignature' => $this->signature,
                                         'TransID' => $this->transaction->get_id(),
-                                        'FormID' => self::FORM_ID
+                                        'FormID' => $this->form_id
                                     );
                     
                     $result = $query->execute($input_data);
