@@ -326,7 +326,7 @@ class MolecularBiosciences_BAS
                                         'LOR2Name' => $this->recommendation_2_name,
                                         'LOR2Title' => $this->recommendation_2_title,
                                         'LOR2Relationship' => $this->recommendation_2_relationship,
-                                        'UnofficialTranscript' => $this->transcript_1,
+                                        'UnofficialTranscript' => $this->transcript,
                                         'TransID' => $this->transaction->get_id(), 
                                         'FormID' => $this->form_id,
                                         'ElectronicSignature' => $this->signature
@@ -477,7 +477,7 @@ class MolecularBiosciences_BAS
             $this->recommendation_2_relationship = null;
         }
 
-        $this->transcript_1 = !empty($_entry['14']) ? rgar($_entry, '14') : null;
+        $this->transcript = !empty($_entry['14']) ? rgar($_entry, '14') : null;
         $this->signature = !empty($_entry['23']) ? rgar($_entry, '23') : null;
         $this->form_id = rgar($_entry, 'form_id');
 
