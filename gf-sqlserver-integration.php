@@ -33,10 +33,7 @@ add_filter('gform_form_settings_menu', 'gfsi_add_custom_form_settings_menu_item'
 //set content for custom settings menu page
 add_action('gform_form_settings_page_gfsi_custom_form_settings_page', 'gfsi_custom_form_settings_page' );
 
-//save custom setting
-//add_filter('gform_form_settings_before_save', 'gfsi_save_custom_form_setting');
-//add_action('gform_after_submission', 'gfsi_process_submission', 10, 2);
-
+//process form submission
 function gfsi_process_submission($entry, $action) {
 
     GFCommon::log_debug( 'gform_post_payment_action: action =>' . print_r( $action, true ) );
@@ -113,11 +110,12 @@ function gfsi_add_custom_form_settings_menu_item( $menu_items ) {
 
 // handle displaying content for our custom menu when selected
 function gfsi_custom_form_settings_page() {
-    
+
+    //only provide our menu item if person has appropriate permissions    
     if ( current_user_can('manage_site') ) {
         $form_id = isset( $_GET['id'] ) ? $_GET['id'] : null;
         if ( $form = GFFormsModel::get_form_meta( $form_id ) ) {
-            //echo '<pre>'; var_dump($form); echo '</pre>';
+
             GFFormSettings::page_header();
         
             include dirname( __FILE__ ) . '/content/sqlserver-integration-menu-page.php';
