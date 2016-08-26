@@ -132,7 +132,7 @@ class HealthcareInformatics_BAS
 
                                         'Req1MetAdmissionBy' => $this->req1_howmeet,
                                         'Req1DegreeCompleted' => $this->req1_degree,
-                                        'Req1CoursesCompleted' => utf8_encode($this->req1_courses),
+                                        'Req1CoursesCompleted' => $this->req1_courses,
                                         'Req1SchoolAttended' => $this->req1_school,
                                         
                                         'Req2Course' => $this->req2_course,
