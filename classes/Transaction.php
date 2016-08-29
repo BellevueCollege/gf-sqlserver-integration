@@ -23,6 +23,7 @@ class Transaction
     protected $billing_state;   //billing state
     protected $billing_zip; //billing zip
 
+    //public constructor
     public function __construct($_id, 
                                 $_form_id, 
                                 $_sid,
@@ -61,6 +62,7 @@ class Transaction
 
     }	
 
+    //save transaction info to external db
     public function save() {
         $db = new DB();
         $conn = $db->getDB();
@@ -99,7 +101,7 @@ class Transaction
                             'SID' => $this->sid,
                             'Email' => $this->email
                         );
-        
+
                 $result = $query->execute($input_data);      
                 //var_dump($result);
                 //var_dump($conn->errorCode());

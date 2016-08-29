@@ -21,15 +21,16 @@ class DataAnalytics_BAS
     protected $transaction;
     protected $form_id;
     
+    //public constructor
     public function __construct() {
 
     }
 
+    //save data to SQL Server
     public function save() {
         $db = new DB();
         $conn = $db->getDB();
-        //echo "<pre>Input encoding: " . mb_detect_encoding($this->first_name) . "</pre>";
-        //echo "<pre>Textarea encoding: " . mb_detect_encoding($this->personal_stmt) . "</pre>";
+
         if ( $conn ) {
             try {
                 $result = $this->transaction->save();   //save transaction first because of db constraint on trans id
@@ -85,6 +86,7 @@ class DataAnalytics_BAS
         return false;
     }
 
+    //fill in model fields from form entry info
     public function build($_entry) {
         //set model info
         $this->first_name = !empty($_entry['1.3']) ? rgar($_entry, '1.3') : null;
@@ -103,6 +105,7 @@ class DataAnalytics_BAS
         $this->signature = !empty($_entry['23']) ? rgar($_entry, '23') : null;
         $this->form_id = rgar($_entry, 'form_id');
 
+        //build transaction object
         $this->transaction = new Transaction(
             rgar($_entry, 'transaction_id'),
             $this->form_id,
@@ -124,10 +127,12 @@ class DataAnalytics_BAS
         );
     }
 
+    //return transaction object
 	public function get_transaction(){
 		return $this->transaction;
 	}
 
+    //return form id
 	public function get_form_id(){
 		return $this->form_id;
 	}

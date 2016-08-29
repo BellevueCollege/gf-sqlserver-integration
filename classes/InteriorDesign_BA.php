@@ -20,10 +20,12 @@ class InteriorDesign_BA
     protected $transaction;
     protected $form_id;
     
+    //public constructor
     public function __construct() {
 
     }
 
+    //save data model to external db
     public function save() {
         $db = new DB();
         $conn = $db->getDB();
@@ -64,7 +66,6 @@ class InteriorDesign_BA
                                         'TransID' => $this->transaction->get_id(),
                                         'FormID' => $this->form_id
                                     );
-                    
                     $result = $query->execute($input_data);
                     //var_dump($result);
                     //var_dump($conn->errorCode());
@@ -79,6 +80,7 @@ class InteriorDesign_BA
         return false;
     }
 
+    //fill data model fields from submitted form info
     public function build($_entry) {
         //set model info
         $this->first_name = !empty($_entry['1.3']) ? rgar($_entry, '1.3') : null;
@@ -96,6 +98,7 @@ class InteriorDesign_BA
         $this->signature = !empty($_entry['23']) ? rgar($_entry, '23') : null;
         $this->form_id = rgar($_entry, 'form_id');
 
+        //build transaction model
         $this->transaction = new Transaction(
             rgar($_entry, 'transaction_id'),
             $this->form_id,
@@ -117,10 +120,12 @@ class InteriorDesign_BA
         );
     }
 
+    //get transaction object
 	public function get_transaction(){
 		return $this->transaction;
 	}
 
+    //return form id
 	public function get_form_id(){
 		return $this->form_id;
 	}

@@ -20,10 +20,12 @@ class HealthcareManagement_BAS
     protected $transaction;
     protected $form_id;
     
+    //public constructor
     public function __construct() {
 
     }
 
+    //save data model info to SQL Server
     public function save() {
         $db = new DB();
         $conn = $db->getDB();
@@ -82,6 +84,7 @@ class HealthcareManagement_BAS
         return false;
     }
 
+    //fill in data model fields using form information
     public function build($_entry) {
         //set model info using entry values
         $this->first_name = !empty($_entry['1.3']) ? rgar($_entry, '1.3') : null;

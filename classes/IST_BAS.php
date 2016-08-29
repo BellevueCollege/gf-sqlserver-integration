@@ -25,10 +25,12 @@ class IST_BAS
     protected $transaction;
     protected $form_id;
     
+    //public constructor
     public function __construct() {
 
     }
 
+    //save data model to external db
     public function save() {
         $db = new DB();
         $conn = $db->getDB();
@@ -80,7 +82,6 @@ class IST_BAS
                                         'EnrollmentStatus' => $this->enroll_status,
                                         'ElectronicSignature' => $this->signature
                                     );
-                    
                     $result = $query->execute($input_data);
                     //var_dump($result);
                     //var_dump($conn->errorCode());
@@ -95,6 +96,7 @@ class IST_BAS
         return false;
     }
 
+    //fill in data model fields using submitted form info
     public function build($_entry) {
         //set model info
         $this->first_name = !empty($_entry['1.3']) ? rgar($_entry, '1.3') : null;
@@ -125,6 +127,7 @@ class IST_BAS
         $this->signature = !empty($_entry['23']) ? rgar($_entry, '23') : null;
         $this->form_id = rgar($_entry, 'form_id');
 
+        //build transaction object
         $this->transaction = new Transaction(
             rgar($_entry, 'transaction_id'),
             $this->form_id,
@@ -146,6 +149,7 @@ class IST_BAS
         );
     }
 
+    //return form id
 	public function get_form_id(){
 		return self::FORM_ID;
 	}

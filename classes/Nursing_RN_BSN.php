@@ -24,10 +24,12 @@ class Nursing_RN_BSN
     protected $transaction;
     protected $form_id;
     
+    //public constructor
     public function __construct() {
 
     }
 
+    //save data model to external db
     public function save() {
         $db = new DB();
         $conn = $db->getDB();
@@ -78,7 +80,6 @@ class Nursing_RN_BSN
                                         'EnrollmentStatus' => $this->enroll_status,
                                         'ElectronicSignature' => $this->signature
                                     );
-
                     $result = $query->execute($input_data);
                     //var_dump($result);
                     //var_dump($conn->errorCode());
@@ -93,6 +94,7 @@ class Nursing_RN_BSN
         return false;
     }
 
+    //fill in data model fields using submitted form info
     public function build($_entry) {
         //set model info using entry values
         $this->first_name = !empty($_entry['1.3']) ? rgar($_entry, '1.3') : null;

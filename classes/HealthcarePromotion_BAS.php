@@ -19,16 +19,17 @@ class HealthcarePromotion_BAS
     protected $signature;
     protected $transaction;
     protected $form_id;
-    
+
+    //public constructor    
     public function __construct() {
 
     }
 
+    //save data model info to external db
     public function save() {
         $db = new DB();
         $conn = $db->getDB();
-        //echo "<pre>Input encoding: " . mb_detect_encoding($this->first_name) . "</pre>";
-        //echo "<pre>Textarea encoding: " . mb_detect_encoding($this->personal_stmt) . "</pre>";
+
         if ( $conn ) {
             try {
                 $result = $this->transaction->save();   //save transaction first because of db constraint on trans id
@@ -82,6 +83,7 @@ class HealthcarePromotion_BAS
         return false;
     }
 
+    //fill in data model fields with submitted form information
     public function build($_entry) {
         //set model info using entry values
         $this->first_name = !empty($_entry['1.3']) ? rgar($_entry, '1.3') : null;
