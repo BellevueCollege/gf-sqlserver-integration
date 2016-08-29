@@ -149,9 +149,14 @@ class IST_BAS
         );
     }
 
+    //return transaction
+	public function get_transaction(){
+		return $this->transaction;
+	}
+    
     //return form id
 	public function get_form_id(){
-		return self::FORM_ID;
+		return $this->form_id;
 	}
 
 }
