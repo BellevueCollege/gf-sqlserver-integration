@@ -84,9 +84,9 @@ function gfsi_process_submission($entry, $action) {
         if ( !empty($model) ) {
             $model->build($entry);
             $model->save();
-            echo '<pre>';
+            /*echo '<pre>';
             var_dump($model);
-            echo '</pre>';
+            echo '</pre>';*/
         } else {
             throw new Exception("Model is empty, likely no data model set for form " . $this_form["title"]);
         } 
