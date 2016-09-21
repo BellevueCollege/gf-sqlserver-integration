@@ -116,46 +116,6 @@ class Transaction
         return false;
     }	
 
-    public function get_first_name() {
-        return $this->first_name;
-    }
-
-	public function set_first_name($_first_name){
-		$this->first_name = $_first_name;
-	}
-
-	public function get_last_name(){
-		return $this->last_name;
-	}
-
-	public function set_last_name($_last_name){
-		$this->last_name = $_last_name;
-	}
-
-	public function get_sid(){
-		return $this->sid;
-	}
-
-	public function set_sid($_sid){
-		$this->sid = $_sid;
-	}
-
-	public function get_email(){
-		return $this->email;
-	}
-
-	public function set_email($_email){
-		$this->email = $_email;
-	}
-
-	public function get_phone(){
-		return $this->phone;
-	}
-
-	public function set_phone($_phone){
-		$this->phone = $_phone;
-	}	
-
     public function get_id() {
         return $this->id;
     }
