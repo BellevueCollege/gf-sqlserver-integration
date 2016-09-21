@@ -49,7 +49,7 @@ class Transaction
         $this->last_name = $_last_name;
         $this->email = $_email;
         $this->amount = $_amount;
-        $this->status = $_status;
+        $this->status = !empty($_status) ? $_status : DEFAULT_PAYMENT_STATUS;
         $this->authorization_date = $_authorization_date;
         $this->settlement_date = $_settlement_date;
         $this->billing_first_name = $_billing_first_name;

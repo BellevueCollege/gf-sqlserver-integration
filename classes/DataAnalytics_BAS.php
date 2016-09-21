@@ -114,7 +114,7 @@ class DataAnalytics_BAS
             $this->last_name,
             $this->email,
             rgar($_entry, 'payment_amount'),
-            rgar($_entry, 'payment_status'),
+            null,
             rgar($_entry, 'payment_date'),
             null,
             null,
