@@ -14,6 +14,7 @@ defined ( 'ABSPATH' ) OR exit;
 require_once('config.php');
 require_once( 'classes/Transaction.php' );
 require_once( 'classes/AppliedAccounting_BAS.php');
+require_once( 'classes/ComputerScience_BS.php' );
 require_once( 'classes/DataAnalytics_BAS.php' );
 require_once( 'classes/HealthcareInformatics_BAS.php' );
 require_once( 'classes/HealthcareManagement_BAS.php' );
@@ -74,6 +75,9 @@ function gfsi_process_submission($entry, $action) {
             break;
         case 'Nursing_RN_BSN':
             $model = new Nursing_RN_BSN();
+            break;
+        case 'ComputerScience_BS':
+            $model = new ComputerScience_BS();
             break;
         default:
             break;
