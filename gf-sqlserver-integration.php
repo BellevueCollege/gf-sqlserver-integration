@@ -24,6 +24,7 @@ require_once( 'classes/IST_BAS.php' );
 require_once( 'classes/MolecularBiosciences_BAS.php' );
 require_once( 'classes/Nursing_RN_BSN.php' );
 require_once( 'classes/RadiationImaging_BAS.php' );
+require_once( 'classes/TechPrepPayment.php' );
 
 //attach processing to post payment action
 add_action('gform_post_payment_action', 'gfsi_process_submission', 10, 2);
@@ -79,6 +80,9 @@ function gfsi_process_submission($entry, $action) {
         case 'ComputerScience_BS':
             $model = new ComputerScience_BS();
             break;
+        case 'TechPrepPayment':
+            $model = new TechPrepPayment();
+            break;
         default:
             break;
     }
@@ -88,7 +92,7 @@ function gfsi_process_submission($entry, $action) {
         if ( !empty($model) ) {
             $model->build($entry);
             $model->save();
-            /*echo '<pre>';
+           /*echo '<pre>';
             var_dump($model);
             echo '</pre>';*/
         } else {
