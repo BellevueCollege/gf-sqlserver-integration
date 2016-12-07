@@ -334,9 +334,10 @@ class MolecularBiosciences_BAS
                                     );
 
                     $result = $query->execute($input_data);
-                    //var_dump($result);
-                    //var_dump($conn->errorCode());
-                    //var_dump($conn->errorInfo());
+//                    var_dump($input_data);
+//                    var_dump($result);
+//                    var_dump($conn->errorCode());
+//                    var_dump($conn->errorInfo());
                     return $result;
             } catch (PDOException $e) {
                 error_log( print_r("PDOException in MolecularBiosciences_BAS::save - " . $e->getMessage(), true) );
@@ -455,8 +456,8 @@ class MolecularBiosciences_BAS
         $this->req14_grade = !empty($_entry['108']) ? rgar($_entry, '108') : null;
         $this->req14_school = !empty($_entry['109']) ? rgar($_entry, '109') : null;
 
-        $this->personal_stmt = !empty($_entry['12']) ? rgar($_entry, '12') : null;
-        $this->diversity_stmt = !empty($_entry['110']) ? rgar($_entry, '110') : null;
+        $this->personal_stmt = !empty($_entry['118']) ? rgar($_entry, '118') : null;
+        $this->diversity_stmt = !empty($_entry['119']) ? rgar($_entry, '119') : null;
 
         //set recommendation data
         if ( !empty($_entry['112']) ){
