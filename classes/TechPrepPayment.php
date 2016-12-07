@@ -57,9 +57,9 @@ class TechPrepPayment
                     //var_dump($conn->errorInfo());
                     return $result;
             } catch (PDOException $e) {
-                error_log( print_r("PDOException in AppliedAccounting_BAS::save - " . $e->getMessage(), true) );
+                error_log( print_r("PDOException in TechPrepPayment::save - " . $e->getMessage(), true) );
             } catch (Exception $e) {
-                error_log( print_r("General exception in AppliedAccounting_BAS::save - " . $e->getMessage(), true) );
+                error_log( print_r("General exception in TechPrepPayment::save - " . $e->getMessage(), true) );
             }
         }       
         return false;
