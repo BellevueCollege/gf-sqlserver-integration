@@ -24,7 +24,9 @@ require_once( 'classes/IST_BAS.php' );
 require_once( 'classes/MolecularBiosciences_BAS.php' );
 require_once( 'classes/Nursing_RN_BSN.php' );
 require_once( 'classes/RadiationImaging_BAS.php' );
+require_once( 'classes/RadiationTherapyProgram_AA.php' );
 require_once( 'classes/TechPrepPayment.php' );
+require_once( 'classes/HealthCareInformaticsCertificate.php' );
 
 //attach processing to post payment action
 add_action('gform_post_payment_action', 'gfsi_process_submission', 10, 2);
@@ -83,6 +85,12 @@ function gfsi_process_submission($entry, $action) {
         case 'TechPrepPayment':
             $model = new TechPrepPayment();
             break;
+        case 'HealthCareInformaticsCertificate':
+            $model = new HealthCareInformaticsCertificate();
+            break;
+        case 'RadiationTherapyProgram_AA':
+            $model = new RadiationTherapyProgram_AA();
+            break;
         default:
             break;
     }
@@ -91,6 +99,7 @@ function gfsi_process_submission($entry, $action) {
     try {
         if ( !empty($model) ) {
             $model->build($entry);
+            //var_dump($model);
             $model->save();
            /*echo '<pre>';
             var_dump($model);
