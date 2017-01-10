@@ -1,8 +1,9 @@
 <?php
+
 require_once('DB.php');
 require_once('Transaction.php');
 
-class RadiationTherapyProgram_AA
+class RadiologicTechnologyProgram_AA
 {
     protected $first_name;
     protected $last_name;
@@ -20,11 +21,6 @@ class RadiationTherapyProgram_AA
 //    protected $int_alg_grade_earned;
 //    protected $int_alg_school_attended;
 //    
-//    protected $other_hundred_math_course;
-//    protected $other_hundred_math_term_completed;
-//    protected $other_hundred_math_grade_earned;
-//    protected $other_hundred_math_school_attended;
-//    
 //    protected $ha_phyI_course;
 //    protected $ha_phyI_term_completed;
 //    protected $ha_phyI_grade_earned;
@@ -35,26 +31,25 @@ class RadiationTherapyProgram_AA
 //    protected $ha_phyII_grade_earned;
 //    protected $ha_phyII_school_attended;
 //    
-//    protected $comm_intro_course;
-//    protected $comm_intro_term_completed;
-//    protected $comm_intro_grade_earned;
-//    protected $comm_intro_school_attended;
-//    
 //    protected $cultural_div_course;
 //    protected $cultural_div_term_completed;
 //    protected $cultural_div_grade_earned;
 //    protected $cultural_div_school_attended;
-    
-    protected $did_attend_info_session;
+//    
+    protected $did_attend_orientation_session;
     protected $date_attended;
     
     protected $is_reapplicant;
     protected $year_last_applied;
     
-    protected $did_compl_hospital_obs;
-    protected $date_completed;
-    
-    protected $clinical_site_name;
+    protected $pceI_clinic_hospital_name;
+    protected $pceI_type_of_work_performed;
+    protected $pceI_no_of_hours;
+    protected $pceI_start_and_end_date;
+    protected $pceII_clinic_hospital_name;
+    protected $pceII_type_of_work_performed;
+    protected $pceII_no_of_hours;
+    protected $pceII_start_and_end_date;
 
     protected $personal_stmt;
     
@@ -63,11 +58,8 @@ class RadiationTherapyProgram_AA
     protected $college_transcript_3;
     protected $college_transcript_4;
     
-    protected $hospital_observation_form;
-    
+    protected $patient_care_radiology_exp;
     protected $prerequisite;
-
-
     protected $signature;
     protected $transaction;
     protected $form_id;
@@ -85,7 +77,7 @@ class RadiationTherapyProgram_AA
         if ( $conn ) {
             try {
                 $result = $this->transaction->save();   //save transaction first because of db constraint on trans id
-                $tsql = 'EXEC [usp_InsertIntoAARadiationTherapyForm]'
+                $tsql = 'EXEC [usp_InsertIntoAARadiologicTechForm]'
                             . '@SID = :SID,'
                             . '@Fname = :FirstName,'
                             . '@Lname = :LastName,'
@@ -102,11 +94,6 @@ class RadiationTherapyProgram_AA
 //                            . '@IntAlgGradeEarned = :IntAlgGradeEarned,'
 //                            . '@IntAlgSchoolAttended = :IntAlgSchoolAttended,'
 //                        
-//                            . '@OtherhundredMathCourse = :OtherhundredMathCourse,'
-//                            . '@OtherhundredMathTermCompleted = :OtherhundredMathTermCompleted,'
-//                            . '@OtherhundredMathGradeEarned = :OtherhundredMathGradeEarned,'
-//                            . '@OtherhundredMathSchoolAttended = :OtherhundredMathSchoolAttended,'
-//                        
 //                            . '@HAPhysICourse = :HAPhysICourse,'
 //                            . '@HAPhysITermCompleted = :HAPhysITermCompleted,'
 //                            . '@HAPhysIGradeEarned = :HAPhysIGradeEarned,'
@@ -116,40 +103,40 @@ class RadiationTherapyProgram_AA
 //                            . '@HAPhysIITermCompleted = :HAPhysIITermCompleted,'
 //                            . '@HAPhysIIGradeEarned = :HAPhysIIGradeEarned,'
 //                            . '@HAPhysIISchoolAttended = :HAPhysIISchoolAttended,'
-//                        
-//                            . '@CommIntroCourse = :CommIntroCourse,'
-//                            . '@CommIntroTermCompleted = :CommIntroTermCompleted,'
-//                            . '@CommIntroGradeEarned = :CommIntroGradeEarned,'
-//                            . '@CommIntroSchoolAttended = :CommIntroSchoolAttended,'
-//                        
+//                      
 //                            . '@CulturalDivCourse = :CulturalDivCourse,'
 //                            . '@CulturalDivTermCompleted = :CulturalDivTermCompleted,'
 //                            . '@CulturalDivGradeEarned = :CulturalDivGradeEarned,'
 //                            . '@CulturalDivSchoolAttended = :CulturalDivSchoolAttended,'
                         
-                            . '@DidAttendInfoSession = :DidAttendInfoSession,'
+                            . '@DidAttendOrientationSession = :DidAttendOrientationSession,'
                             . '@DateAttended = :DateAttended,'
                         
                             . '@IsReapplicant = :IsReapplicant,'
                             . '@YearLastApplied = :YearLastApplied,'
                         
-                            . '@DidComplHospitalObs = :DidComplHospitalObs,'
-                            . '@DateCompleted = :DateCompleted,'
+                            . '@PCEIClinicHospitalName = :PCEIClinicHospitalName,'
+                            . '@PCEITypeofworkPerformed = :PCEITypeofworkPerformed,'
+                            . '@PCEINoofHours = :PCEINoofHours,'
+                            . '@PCEIStartandEndDate = :PCEIStartandEndDate,'
+                            . '@PCEIIClinicHospitalName = :PCEIIClinicHospitalName,'
+                            . '@PCEIITypeofworkPerformed = :PCEIITypeofworkPerformed,'
+                            . '@PCEIINoofHours = :PCEIINoofHours,'
+                            . '@PCEIIStartandEndDate = :PCEIIStartandEndDate,'
                         
-                            . '@ClinicalSiteName = :ClinicalSiteName,'
                             . '@PersonalStatement = :PersonalStatement,'
                         
                             . '@UnofficialTranscript1 = :UnofficialTranscript1,'
                             . '@UnofficialTranscript2 = :UnofficialTranscript2,'
                             . '@UnofficialTranscript3 = :UnofficialTranscript3,'
                             . '@UnofficialTranscript4 = :UnofficialTranscript4,'
-                        
-                            . '@HospitalObservationForm = :HospitalObservationForm,'
                             . '@Prerequisite = :Prerequisite,'
+                        
+                            . '@PatientcareorRadiologyForm = :PatientcareorRadiologyForm,'                         
                             . '@TransID = :TransID,'
                             . '@FormID = :FormID,'
                             . '@ElectronicSignature = :ElectronicSignature;';
-                
+                            //error_log("parameters :".$tsql);
                     $query = $conn->prepare( $tsql );                   
                     $input_data = array( 
                                         'SID' => $this->sid,
@@ -167,12 +154,7 @@ class RadiationTherapyProgram_AA
 //                                        'IntAlgTermCompleted' => $this->int_alg_term_completed,
 //                                        'IntAlgGradeEarned' => $this->int_alg_grade_earned,
 //                                        'IntAlgSchoolAttended' => $this->int_alg_school_attended,
-//                        
-//                                        'OtherhundredMathCourse' => $this->other_hundred_math_course,
-//                                        'OtherhundredMathTermCompleted' => $this->other_hundred_math_term_completed,
-//                                        'OtherhundredMathGradeEarned' => $this->other_hundred_math_grade_earned,
-//                                        'OtherhundredMathSchoolAttended' => $this->other_hundred_math_school_attended,
-//                                        
+//                                                               
 //                                        'HAPhysICourse' => $this->ha_phyI_course,
 //                                        'HAPhysITermCompleted' => $this->ha_phyI_term_completed,
 //                                        'HAPhysIGradeEarned' => $this->ha_phyI_grade_earned,
@@ -182,27 +164,27 @@ class RadiationTherapyProgram_AA
 //                                        'HAPhysIITermCompleted' => $this->ha_phyII_term_completed,
 //                                        'HAPhysIIGradeEarned' => $this->ha_phyII_grade_earned,
 //                                        'HAPhysIISchoolAttended' => $this->ha_phyII_school_attended,
-//                        
-//                                        'CommIntroCourse' => $this->comm_intro_course,
-//                                        'CommIntroTermCompleted' => $this->comm_intro_term_completed,
-//                                        'CommIntroGradeEarned' => $this->comm_intro_grade_earned,
-//                                        'CommIntroSchoolAttended' => $this->comm_intro_school_attended,
-//                        
+//                                             
 //                                        'CulturalDivCourse' => $this->cultural_div_course,
 //                                        'CulturalDivTermCompleted' => $this->cultural_div_term_completed,
 //                                        'CulturalDivGradeEarned' => $this->cultural_div_grade_earned,
 //                                        'CulturalDivSchoolAttended' => $this->cultural_div_school_attended,
-//                        
-                                        'DidAttendInfoSession' => $this->did_attend_info_session,
+                        
+                                        'DidAttendOrientationSession' => $this->did_attend_orientation_session,
                                         'DateAttended' => $this->date_attended,
                         
                                         'IsReapplicant' => $this->is_reapplicant,
                                         'YearLastApplied' => $this->year_last_applied,
                         
-                                        'DidComplHospitalObs' => $this->did_compl_hospital_obs,
-                                        'DateCompleted' => $this->date_completed,
+                                        'PCEIClinicHospitalName' => $this->pceI_clinic_hospital_name,
+                                        'PCEITypeofworkPerformed' => $this->pceI_type_of_work_performed,
+                                        'PCEINoofHours' => $this->pceI_no_of_hours,
+                                        'PCEIStartandEndDate' => $this->pceI_start_and_end_date,
+                                        'PCEIIClinicHospitalName' => $this->pceII_clinic_hospital_name,
+                                        'PCEIITypeofworkPerformed' => $this->pceII_type_of_work_performed,
+                                        'PCEIINoofHours' => $this->pceII_no_of_hours,                           
+                                        'PCEIIStartandEndDate' => $this->pceII_start_and_end_date,
                         
-                                        'ClinicalSiteName' => $this->clinical_site_name,
                                         'PersonalStatement' => $this->personal_stmt,
                         
                                         'UnofficialTranscript1' => $this->college_transcript_1,
@@ -210,22 +192,22 @@ class RadiationTherapyProgram_AA
                                         'UnofficialTranscript3' => $this->college_transcript_3,
                                         'UnofficialTranscript4' => $this->college_transcript_4,
                         
-                                        'HospitalObservationForm' => $this->hospital_observation_form,
+                                        'PatientcareorRadiologyForm' => $this->patient_care_radiology_exp,
                                         'Prerequisite' => $this->prerequisite,
                                         'TransID' => $this->transaction->get_id(), 
                                         'FormID' => $this->form_id,
                                         'ElectronicSignature' => $this->signature
                                     );
-                                    
+                      //error_log("input data :".print_r($input_data,true));              
                     $result = $query->execute($input_data);                   
                     //var_dump($result);
                     //var_dump($conn->errorCode());
                     //var_dump($conn->errorInfo());
                     return $result;
             } catch (PDOException $e) {
-                error_log( print_r("PDOException in RadiationTherapyProgram_AA::save - " . $e->getMessage(), true) );
+                error_log( print_r("PDOException in RadiologicTechnologyProgram_AA::save - " . $e->getMessage(), true) );
             } catch (Exception $e) {
-                error_log( print_r("General exception in RadiationTherapyProgram_AA::save - " . $e->getMessage(), true) );
+                error_log( print_r("General exception in RadiologicTechnologyProgram_AA::save - " . $e->getMessage(), true) );
             }
         }       
         return false;
@@ -233,6 +215,9 @@ class RadiationTherapyProgram_AA
 
     //fill in data model fields using form information
     public function build($_entry) {
+        
+        //error_log(print_r($_entry,true));
+        //exit();
         //set model info using entry values
         $this->first_name = !empty($_entry['2.3']) ? rgar($_entry, '2.3') : null;
         $this->last_name = !empty($_entry['2.6']) ? rgar($_entry, '2.6') : null;
@@ -240,7 +225,7 @@ class RadiationTherapyProgram_AA
         $this->email = !empty($_entry['4']) ? rgar($_entry, '4') : null;
         $this->phone = !empty($_entry['5']) ? rgar($_entry, '5') : null;
         
-        //process transfer english info
+//        //process transfer english info
 //        if ( !empty($_entry['8']) ){
 //            $class_data = unserialize(rgar( $_entry, '8' ));
 //
@@ -270,20 +255,6 @@ class RadiationTherapyProgram_AA
 //            $this->int_alg_school_attended = null;
 //        }
 //        
-//        //process Other 100 level math course info
-//        if ( !empty($_entry['11']) ){
-//            $class_data = unserialize(rgar( $_entry, '11' ));
-//
-//            $this->other_hundred_math_course = !empty($class_data[0]["Course"]) ? $class_data[0]["Course"] : null;
-//            $this->other_hundred_math_term_completed = !empty($class_data[0]["Term completed"]) ? $class_data[0]["Term completed"] : null;
-//            $this->other_hundred_math_grade_earned = !empty($class_data[0]["Grade"]) ? $class_data[0]["Grade"] : null;
-//            $this->other_hundred_math_school_attended = !empty($class_data[0]["School"]) ? $class_data[0]["School"] : null;
-//        } else {
-//            $this->other_hundred_math_course = null;
-//            $this->other_hundred_math_term_completed = null;
-//            $this->other_hundred_math_grade_earned = null;
-//            $this->other_hundred_math_school_attended = null;
-//        }
 //        
 //        //process human anatomy & physiology I
 //        if ( !empty($_entry['12']) ){
@@ -315,21 +286,6 @@ class RadiationTherapyProgram_AA
 //            $this->ha_phyII_school_attended = null;
 //        }
 //        
-//        //process Introduction to Communication info
-//        if ( !empty($_entry['14']) ){
-//            $class_data = unserialize(rgar( $_entry, '14' ));
-//
-//            $this->comm_intro_course = !empty($class_data[0]["Course"]) ? $class_data[0]["Course"] : null;
-//            $this->comm_intro_term_completed = !empty($class_data[0]["Term completed"]) ? $class_data[0]["Term completed"] : null;
-//            $this->comm_intro_grade_earned = !empty($class_data[0]["Grade"]) ? $class_data[0]["Grade"] : null;
-//            $this->comm_intro_school_attended = !empty($class_data[0]["School"]) ? $class_data[0]["School"] : null;
-//        } else {
-//            $this->comm_intro_course = null;
-//            $this->comm_intro_term_completed = null;
-//            $this->comm_intro_grade_earned = null;
-//            $this->comm_intro_school_attended = null;
-//        }
-//        
 //        //process cultural diversity course info
 //        if ( !empty($_entry['15']) ){
 //            $class_data = unserialize(rgar( $_entry, '15' ));
@@ -347,11 +303,11 @@ class RadiationTherapyProgram_AA
 //        
         
         if ( empty($_entry['16']) ) {
-            $this->did_attend_info_session = null;
+            $this->did_attend_orientation_session = null;
         } else if ( !empty($_entry['16']) && strtolower(rgar($_entry, '16')) == "yes" ) {
-            $this->did_attend_info_session = true;
+            $this->did_attend_orientation_session = true;
         } else {
-            $this->did_attend_info_session = false;
+            $this->did_attend_orientation_session = false;
         }  
         
         
@@ -366,23 +322,35 @@ class RadiationTherapyProgram_AA
         }  
         $this->year_last_applied = !empty($_entry['19']) ? rgar($_entry, '19') : null;
         
-        if ( empty($_entry['20']) ) {
-            $this->did_compl_hospital_obs = null;
-        } else if ( !empty($_entry['20']) && strtolower(rgar($_entry, '20')) == "yes" ) {
-            $this->did_compl_hospital_obs = true;
+        if ( !empty($_entry['38']) ){
+            $class_data = unserialize(rgar( $_entry, '38' ));
+
+            $this->pceI_clinic_hospital_name = !empty($class_data[0]["Clinic/Hospital"]) ? $class_data[0]["Clinic/Hospital"] : null;
+            $this->pceI_type_of_work_performed = !empty($class_data[0]["Type of work performed"]) ? $class_data[0]["Type of work performed"] : null;
+            $this->pceI_no_of_hours = !empty($class_data[0]["No. of hours"]) ? $class_data[0]["No. of hours"] : null;
+            $this->pceI_start_and_end_date = !empty($class_data[0]["Start and End dates"]) ? $class_data[0]["Start and End dates"] : null;
+            $this->pceII_clinic_hospital_name = !empty($class_data[1]["Clinic/Hospital"]) ? $class_data[1]["Clinic/Hospital"] : null;
+            $this->pceII_type_of_work_performed = !empty($class_data[1]["Type of work performed"]) ? $class_data[1]["Type of work performed"] : null;
+            $this->pceII_no_of_hours = !empty($class_data[1]["No. of hours"]) ? $class_data[1]["No. of hours"] : null;
+            $this->pceII_start_and_end_date = !empty($class_data[1]["Start and End dates"]) ? $class_data[1]["Start and End dates"] : null;
         } else {
-            $this->did_compl_hospital_obs = false;
-        }  
+            $this->pceI_clinic_hospital_name = null;
+            $this->pceI_type_of_work_performed = null;
+            $this->pceI_no_of_hours = null;
+            $this->pceI_start_and_end_date = null;
+            $this->pceII_clinic_hospital_name = null;
+            $this->pceII_type_of_work_performed = null;
+            $this->pceII_no_of_hours = null;
+            $this->pceII_start_and_end_date = null;
+        }
         
-        $this->date_completed = !empty($_entry['21']) ? rgar($_entry, '21') : null;
-        $this->clinical_site_name = !empty($_entry['22']) ? rgar($_entry, '22') : null;
         $this->personal_stmt = !empty($_entry['23']) ? rgar($_entry, '23') : null;
         $this->college_transcript_1 = !empty($_entry['25']) ? rgar($_entry, '25') : null;
         $this->college_transcript_2 = !empty($_entry['26']) ? rgar($_entry, '26') : null;
         $this->college_transcript_3 = !empty($_entry['27']) ? rgar($_entry, '27') : null;
         $this->college_transcript_4 = !empty($_entry['28']) ? rgar($_entry, '28') : null;
-        $this->hospital_observation_form = !empty($_entry['31']) ? rgar($_entry, '31') : null;
-        $this->prerequisite = !empty($_entry['42']) ? rgar($_entry, '42') : null;
+        $this->patient_care_radiology_exp = !empty($_entry['31']) ? rgar($_entry, '31') : null;
+        $this->prerequisite = !empty($_entry['45']) ? rgar($_entry, '45') : null;
         
         $this->signature = !empty($_entry['36']) ? rgar($_entry, '36') : null;
         $this->form_id = rgar($_entry, 'form_id');
@@ -401,11 +369,11 @@ class RadiationTherapyProgram_AA
             null,
             null,
             null,
-            rgar($_entry, '38.1'),
-            rgar($_entry, '38.2'),
-            rgar($_entry, '38.3'),
-            rgar($_entry, '38.4'),
-            rgar($_entry, '38.5')
+            rgar($_entry, '42.1'),
+            rgar($_entry, '42.3'),
+            rgar($_entry, '42.4'),
+            rgar($_entry, '42.5'),
+            rgar($_entry, '42.6')
         );
     }
 

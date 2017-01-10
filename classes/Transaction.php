@@ -101,9 +101,9 @@ class Transaction
                             'SID' => $this->sid,
                             'Email' => $this->email
                         );
-
+                       
                 $result = $query->execute($input_data);      
-                //var_dump($result);
+               
                 //var_dump($conn->errorCode());
                 //var_dump($conn->errorInfo());  
                 return $result;

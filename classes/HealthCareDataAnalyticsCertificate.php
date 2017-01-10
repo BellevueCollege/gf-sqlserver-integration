@@ -2,7 +2,7 @@
 require_once('DB.php');
 require_once('Transaction.php');
 
-class HealthCareInformaticsCertificate
+class HealthCareDataAnalyticsCertificate
 {
     protected $first_name;
     protected $last_name;
@@ -10,7 +10,9 @@ class HealthCareInformaticsCertificate
     protected $email;
     protected $phone;
     protected $enroll_status;
-    
+    protected $resume;
+
+
 //    protected $req1_degree;
 //    protected $req1_school;
 //    
@@ -30,6 +32,7 @@ class HealthCareInformaticsCertificate
 //    protected $req4_school;
     
     protected $prerequisite;
+    protected $signature;
     protected $personal_stmt;
     protected $transaction;
     protected $form_id;
@@ -46,7 +49,7 @@ class HealthCareInformaticsCertificate
         if ( $conn ) {
             try {
                 $result = $this->transaction->save();   //save transaction first because of db constraint on trans id               
-                $tsql = 'EXEC [usp_InsertIntoCertHealthCareInformaticsForm]'
+                $tsql = 'EXEC [usp_InsertIntoCertHealthCareDataAnalyticsForm]'
                             . '@SID = :SID,'
                             . '@Fname = :FirstName,'
                             . '@Lname = :LastName,'
@@ -73,8 +76,10 @@ class HealthCareInformaticsCertificate
 //                            . '@Req4GradeEarned = :Req4Grade,'
 //                            . '@Req4SchoolAttended = :Req4School,'                           
                             . '@Prerequisite = :Prerequisite,'
+                            . '@Resume = :Resume,'
                             . '@PersonalStatement = :PersonalStatement,'
                             . '@TransID = :TransID,'
+                            . '@ElectronicSignature = :ElectronicSignature,'
                             . '@FormID = :FormID;';
                     $query = $conn->prepare( $tsql );
                     
@@ -105,19 +110,22 @@ class HealthCareInformaticsCertificate
 //                                        'Req4Grade' => $this->req4_grade,
 //                                        'Req4School' => $this->req4_school,                                        
                                         'Prerequisite' => $this->prerequisite,
+                                        'Resume' => $this->resume,
                                         'PersonalStatement' => $this->personal_stmt,
                                         'TransID' => $this->transaction->get_id(), 
-                                        'FormID' => $this->form_id
+                                        'FormID' => $this->form_id,
+                                        'ElectronicSignature' => $this->signature
                                     );                                                                        
                     $result = $query->execute($input_data);
+                    //error_log("input data :".print_r($input_data,true));  
                     //var_dump($result);
                     //var_dump($conn->errorCode());
                     //var_dump($conn->errorInfo());
                     return $result;
             } catch (PDOException $e) {
-                error_log( print_r("PDOException in HealthCareInformaticsCertificate::save - " . $e->getMessage(), true) );
+                error_log( print_r("PDOException in HealthCareDataAnalyticsCertificate::save - " . $e->getMessage(), true) );
             } catch (Exception $e) {
-                error_log( print_r("General exception in HealthCareInformaticsCertificate::save - " . $e->getMessage(), true) );
+                error_log( print_r("General exception in HealthCareDataAnalyticsCertificate::save - " . $e->getMessage(), true) );
             }
         }       
         return false;
@@ -126,13 +134,14 @@ class HealthCareInformaticsCertificate
     //fill in data model fields using form information
     public function build($_entry) {
         //var_dump($_entry);
+        //error_log(print_r($_entry,true));
         //set model info using entry values
-        $this->first_name = !empty($_entry['2.3']) ? rgar($_entry, '2.3') : null;
-        $this->last_name = !empty($_entry['2.6']) ? rgar($_entry, '2.6') : null;
-        $this->sid = !empty($_entry['3']) ? rgar($_entry, '3') : null;
-        $this->email = !empty($_entry['4']) ? rgar($_entry, '4') : null;
-        $this->phone = !empty($_entry['5']) ? rgar($_entry, '5') : null;
-        $this->enroll_status = !empty($_entry['7']) ? rgar($_entry, '7') : null;
+        $this->first_name = !empty($_entry['1.3']) ? rgar($_entry, '1.3') : null;
+        $this->last_name = !empty($_entry['1.6']) ? rgar($_entry, '1.6') : null;
+        $this->sid = !empty($_entry['2']) ? rgar($_entry, '2') : null;
+        $this->email = !empty($_entry['3']) ? rgar($_entry, '3') : null;
+        $this->phone = !empty($_entry['4']) ? rgar($_entry, '4') : null;
+        $this->enroll_status = !empty($_entry['6']) ? rgar($_entry, '6') : null;
 
 //        $this->req1_degree = !empty($_entry['10']) ? rgar($_entry, '10') : null;
 //        $this->req1_school = !empty($_entry['11']) ? rgar($_entry, '11') : null;               
@@ -153,11 +162,11 @@ class HealthCareInformaticsCertificate
 //        $this->req4_school = !empty($_entry['26']) ? rgar($_entry, '26') : null;
 
         
-
-        $this->personal_stmt = !empty($_entry['29']) ? rgar($_entry, '29') : null;
+        $this->resume = !empty($_entry['28']) ? rgar($_entry, '28') : null;
+        $this->personal_stmt = !empty($_entry['30']) ? rgar($_entry, '30') : null;
         
-        $this->prerequisite = !empty($_entry['37']) ? rgar($_entry, '37') : null;
-        
+        $this->prerequisite = !empty($_entry['42']) ? rgar($_entry, '42') : null;
+        $this->signature = !empty($_entry['41']) ? rgar($_entry, '41') : null;
         $this->form_id = rgar($_entry, 'form_id');
 
         //build transaction object
@@ -174,11 +183,11 @@ class HealthCareInformaticsCertificate
             null,
             null,
             null,
-            rgar($_entry, '35.1'),
-            rgar($_entry, '35.2'),
-            rgar($_entry, '35.3'),
-            rgar($_entry, '35.4'),
-            rgar($_entry, '35.5')
+            rgar($_entry, '37.1'),
+            rgar($_entry, '37.2'),
+            rgar($_entry, '37.3'),
+            rgar($_entry, '37.4'),
+            rgar($_entry, '37.5')
         );
     }
 
