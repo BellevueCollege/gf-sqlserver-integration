@@ -29,6 +29,7 @@ require_once( 'classes/TechPrepPayment.php' );
 require_once( 'classes/HealthCareInformaticsCertificate.php' );
 require_once( 'classes/RadiologicTechnologyProgram_AA.php' );
 require_once( 'classes/HealthCareDataAnalyticsCertificate.php' );
+require_once( 'classes/DigitalMarketing_BAS.php');
 
 //attach processing to post payment action
 add_action('gform_post_payment_action', 'gfsi_process_submission', 10, 2);
@@ -47,7 +48,7 @@ function gfsi_process_submission($entry, $action) {
     // Get form info so we can get the model type assigned to it 
     $this_form = GFAPI::get_form(rgar($entry, 'form_id'));  
     $model_type = rgar($this_form, 'gfsi_model');
-    error_log("hello:".$model_type);
+    //error_log("hello:".$model_type);
     //Instantiate model based on the model type set for the form
     $model = null;
     switch ($model_type) {
@@ -97,9 +98,11 @@ function gfsi_process_submission($entry, $action) {
             $model = new RadiologicTechnologyProgram_AA();
             break;
         case 'HealthCareDataAnalyticsCertificate':
-            error_log("Hello");
+            //error_log("Hello");
             $model = new HealthCareDataAnalyticsCertificate();
             break;
+        case 'DigitalMarketing_BAS':
+            $model = new DigitalMarketing_BAS();
         default:
             break;
     }
