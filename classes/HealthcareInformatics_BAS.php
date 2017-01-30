@@ -241,7 +241,7 @@ class HealthcareInformatics_BAS
         $this->req7_life_grade = !empty($_entry['60']) ? rgar($_entry, '60') : null;
         $this->req7_life_school = !empty($_entry['61']) ? rgar($_entry, '61') : null;
 
-        $this->personal_stmt = !empty($_entry['12']) ? rgar($_entry, '12') : null;
+        $this->personal_stmt = !empty($_entry['67']) ? rgar($_entry, '67') : null;
         $this->signature = !empty($_entry['23']) ? rgar($_entry, '23') : null;
         $this->form_id = rgar($_entry, 'form_id');
 
