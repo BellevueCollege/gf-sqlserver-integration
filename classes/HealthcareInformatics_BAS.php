@@ -51,6 +51,9 @@ class HealthcareInformatics_BAS
     protected $req7_life_grade;
     protected $req7_life_school;
 
+    protected $transcript_1;
+    protected $transcript_2;
+    protected $transcript_3;
     protected $personal_stmt;
     protected $signature;
     protected $transaction;
@@ -117,10 +120,13 @@ class HealthcareInformatics_BAS
                             . '@Req7bGradeEarned = :Req7BGrade,'
                             . '@Req7bSchoolAttended = :Req7BSchool,'
 
-                            . '@PersonalStatement = :PersonalStatement,'
+                            . '@PersonalStatement = :PersonalStatement,'                                                                             
                             . '@TransID = :TransID,'
                             . '@FormID = :FormID,'
-                            . '@ElectronicSignature = :ElectronicSignature;';
+                            . '@ElectronicSignature = :ElectronicSignature,'
+                            . '@UnofficialTranscript1 = :UnofficialTranscript1,'
+                            . '@UnofficialTranscript2 = :UnofficialTranscript2,'
+                            . '@UnofficialTranscript3 = :UnofficialTranscript3;';
                     $query = $conn->prepare( $tsql );
 
                     $input_data = array( 
@@ -172,11 +178,15 @@ class HealthcareInformatics_BAS
                                         'Req7BSchool' => $this->req7_life_school,
 
                                         'PersonalStatement' => $this->personal_stmt,
+                                        'UnofficialTranscript1' => $this->transcript_1,
+                                        'UnofficialTranscript2' => $this->transcript_2,
+                                        'UnofficialTranscript3' => $this->transcript_3,                       
+                             
                                         'TransID' => $this->transaction->get_id(), 
                                         'FormID' => $this->form_id,
                                         'ElectronicSignature' => $this->signature
                                     );
-
+                    
                     $result = $query->execute($input_data);
                     //var_dump($result);
                     //var_dump($conn->errorCode());
@@ -241,6 +251,10 @@ class HealthcareInformatics_BAS
         $this->req7_life_grade = !empty($_entry['60']) ? rgar($_entry, '60') : null;
         $this->req7_life_school = !empty($_entry['61']) ? rgar($_entry, '61') : null;
 
+        $this->transcript_1 = !empty($_entry['68']) ? rgar($_entry, '69') : null;
+        $this->transcript_2 = !empty($_entry['69']) ? rgar($_entry, '70') : null;
+        $this->transcript_3 = !empty($_entry['70']) ? rgar($_entry, '71') : null;
+        
         $this->personal_stmt = !empty($_entry['67']) ? rgar($_entry, '67') : null;
         $this->signature = !empty($_entry['23']) ? rgar($_entry, '23') : null;
         $this->form_id = rgar($_entry, 'form_id');
