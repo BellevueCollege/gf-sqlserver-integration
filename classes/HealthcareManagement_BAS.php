@@ -16,6 +16,7 @@ class HealthcareManagement_BAS
     protected $transcript_2;
     protected $transcript_3;
     protected $personal_stmt;
+    protected $diversity_stmt;
     protected $signature;
     protected $transaction;
     protected $form_id;
@@ -49,6 +50,7 @@ class HealthcareManagement_BAS
                             . '@UnofficialTrans2 = :UnofficialTranscript2,'
                             . '@UnofficialTrans3 = :UnofficialTranscript3,'
                             . '@PersonalStatement = :PersonalStatement,'
+                            . '@DiversityStatement = :DiversityStatement,'
                             . '@ElectronicSignature = :ElectronicSignature;';
                     $query = $conn->prepare( $tsql );
 
@@ -67,6 +69,7 @@ class HealthcareManagement_BAS
                                         'UnofficialTranscript2' => $this->transcript_2,
                                         'UnofficialTranscript3' => $this->transcript_3,
                                         'PersonalStatement' => $this->personal_stmt,
+                                        'DiversityStatement' => $this->diversity_stmt,
                                         'ElectronicSignature' => $this->signature
                                     );
 
@@ -98,7 +101,8 @@ class HealthcareManagement_BAS
         $this->transcript_1 = !empty($_entry['74']) ? rgar($_entry, '74') : null;
         $this->transcript_2 = !empty($_entry['75']) ? rgar($_entry, '75') : null;
         $this->transcript_3 = !empty($_entry['76']) ? rgar($_entry, '76') : null;
-        $this->personal_stmt = !empty($_entry['12']) ? rgar($_entry, '12') : null;
+        $this->personal_stmt = !empty($_entry['78']) ? rgar($_entry, '78') : null;
+        $this->diversity_stmt = !empty($_entry['79']) ? rgar($_entry, '79') : null;
         $this->signature = !empty($_entry['23']) ? rgar($_entry, '23') : null;
         $this->form_id = rgar($_entry, 'form_id');
 
