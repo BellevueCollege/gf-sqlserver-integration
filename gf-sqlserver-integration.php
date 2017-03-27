@@ -4,7 +4,7 @@ Plugin Name: Gravity Forms SQL Server Data Integration for Bellevue College
 Plugin URI: https://github.com/BellevueCollege/gf-sqlserver-integration
 Description: Moves Gravity Forms data to SQL Server for defined models
 Author: Bellevue College Integration Team
-Version: 1.2.2
+Version: 1.3
 Author URI: http://www.bellevuecollege.edu
 GitHub Plugin URI: bellevuecollege/gf-sqlserver-integration
 */
@@ -24,7 +24,12 @@ require_once( 'classes/IST_BAS.php' );
 require_once( 'classes/MolecularBiosciences_BAS.php' );
 require_once( 'classes/Nursing_RN_BSN.php' );
 require_once( 'classes/RadiationImaging_BAS.php' );
+require_once( 'classes/RadiationTherapyProgram_AA.php' );
 require_once( 'classes/TechPrepPayment.php' );
+require_once( 'classes/HealthCareInformaticsCertificate.php' );
+require_once( 'classes/RadiologicTechnologyProgram_AA.php' );
+require_once( 'classes/HealthCareDataAnalyticsCertificate.php' );
+require_once( 'classes/DigitalMarketing_BAS.php');
 
 //attach processing to post payment action
 add_action('gform_post_payment_action', 'gfsi_process_submission', 10, 2);
@@ -43,7 +48,7 @@ function gfsi_process_submission($entry, $action) {
     // Get form info so we can get the model type assigned to it 
     $this_form = GFAPI::get_form(rgar($entry, 'form_id'));  
     $model_type = rgar($this_form, 'gfsi_model');
-
+    //error_log("hello:".$model_type);
     //Instantiate model based on the model type set for the form
     $model = null;
     switch ($model_type) {
@@ -83,6 +88,21 @@ function gfsi_process_submission($entry, $action) {
         case 'TechPrepPayment':
             $model = new TechPrepPayment();
             break;
+        case 'HealthCareInformaticsCertificate':
+            $model = new HealthCareInformaticsCertificate();
+            break;
+        case 'RadiationTherapyProgram_AA':
+            $model = new RadiationTherapyProgram_AA();
+            break;
+        case 'RadiologicTechnologyProgram_AA':
+            $model = new RadiologicTechnologyProgram_AA();
+            break;
+        case 'HealthCareDataAnalyticsCertificate':
+            //error_log("Hello");
+            $model = new HealthCareDataAnalyticsCertificate();
+            break;
+        case 'DigitalMarketing_BAS':
+            $model = new DigitalMarketing_BAS();
         default:
             break;
     }
@@ -91,6 +111,7 @@ function gfsi_process_submission($entry, $action) {
     try {
         if ( !empty($model) ) {
             $model->build($entry);
+            //var_dump($model);
             $model->save();
            /*echo '<pre>';
             var_dump($model);
