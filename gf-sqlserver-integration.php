@@ -73,7 +73,7 @@ function gfsi_process_submission($entry, $action) {
         case 'HealthcareManagement_BAS':
             $model = new HealthcareManagement_BAS();
             break;
-        case 'RadiationImaging_BAS':
+        case 'RadiationImaging_BAS':           
             $model = new RadiationImaging_BAS();
             break;
         case 'MolecularBiosciences_BAS':
