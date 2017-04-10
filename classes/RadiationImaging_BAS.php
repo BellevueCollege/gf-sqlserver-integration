@@ -22,6 +22,14 @@ class RadiationImaging_BAS
     protected $signature;
     protected $transaction;
     protected $form_id;
+    protected $applying_program;
+    protected $desired_qtr_start;
+    protected $interested_in_clinical_practium;
+    protected $clinical_applying_for;
+    protected $desired_clinical_practium_for;
+    protected $desired_clinical_region;
+   // protected $certification_requirement;
+    protected $certifying_organization;
     
     //public constructor
     public function __construct() {
@@ -53,9 +61,18 @@ class RadiationImaging_BAS
                             . '@UnofficialTrans1 = :UnofficialTranscript1,'
                             . '@UnofficialTrans2 = :UnofficialTranscript2,'
                             . '@UnofficialTrans3 = :UnofficialTranscript3,'
-                            . '@PersonalStatement = :PersonalStatement,'
+                            . '@PersonalStatementupload = :PersonalStatement,' // Personal stmt field changed from text to file upload
                             . '@EnrollmentStatus = :EnrollmentStatus,'
-                            . '@ElectronicSignature = :ElectronicSignature;';
+                            . '@ElectronicSignature = :ElectronicSignature,'
+                            . '@ApplyingProgram = :ApplyingProgram,'
+                            . '@desiredQtrStart = :DesiredQtrStart,'
+                            . '@interestedInClinicalPracticum = :ClinicalPracticum,'
+                            . '@clinicalApplyingFor = :ClinicalApplyingFor,'
+                            . '@desiredClinicalPracQtr = :DesiredClinicalPracQtr,'
+                            . '@desiredClinicalRegion = :DesiredClinicalRegion,'
+                            //. '@certificationRequirement = :CertificationRequirement'
+                            . '@certifyingOrganization = :CertifyingOrganization'
+                            . ';';
                     $query = $conn->prepare( $tsql );
                     $input_data = array( 
                                     'TransID' => $this->transaction->get_id(), 
@@ -75,9 +92,16 @@ class RadiationImaging_BAS
                                     'UnofficialTranscript3' => $this->transcript_3,
                                     'PersonalStatement' => $this->personal_stmt,
                                     'EnrollmentStatus' => $this->enroll_status,
-                                    'ElectronicSignature' => $this->signature
+                                    'ElectronicSignature' => $this->signature,
+                                    'ApplyingProgram' => $this->applying_program,
+                                    'DesiredQtrStart' => $this->desired_qtr_start,
+                                    'ClinicalPracticum' => $this->interested_in_clinical_practium,
+                                    'ClinicalApplyingFor' => $this->clinical_applying_for,
+                                    'DesiredClinicalPracQtr' => $this->desired_clinical_practium_for,
+                                    'DesiredClinicalRegion' => $this->desired_clinical_region,
+                                 //   'CertificationRequirement' => $this->certification_requirement,
+                                    'CertifyingOrganization' => $this->certifying_organization
                                 );
-
                     $result = $query->execute($input_data);
                     //var_dump($result);
                     //var_dump($conn->errorCode());
@@ -119,8 +143,16 @@ class RadiationImaging_BAS
         $this->transcript_1 = !empty($_entry['14']) ? rgar($_entry, '14') : null;
         $this->transcript_2 = !empty($_entry['42']) ? rgar($_entry, '42') : null;
         $this->transcript_3 = !empty($_entry['43']) ? rgar($_entry, '43') : null;
-        $this->personal_stmt = !empty($_entry['12']) ? rgar($_entry, '12') : null;
+        $this->personal_stmt = !empty($_entry['55']) ? rgar($_entry, '55') : null;
         $this->signature = !empty($_entry['23']) ? rgar($_entry, '23') : null;
+        $this->applying_program = !empty($_entry['47']) ? rgar($_entry, '47') : null;
+        $this->desired_qtr_start = !empty($_entry['48']) ? rgar($_entry, '48') : null;
+        $this->interested_in_clinical_practium = !empty($_entry['50']) ? rgar($_entry, '50') : null;
+        $this->clinical_applying_for = !empty($_entry['51']) ? rgar($_entry, '51') : null;
+        $this->desired_clinical_practium_for = !empty($_entry['52']) ? rgar($_entry, '52') : null;
+        $this->desired_clinical_region = !empty($_entry['53']) ? rgar($_entry, '53') : null;
+        
+        $this->certifying_organization = !empty($_entry['54']) ? rgar($_entry, '54') : null;
         $this->form_id = rgar($_entry, 'form_id');
 
         //build transaction object

@@ -4,7 +4,7 @@ Plugin Name: Gravity Forms SQL Server Data Integration for Bellevue College
 Plugin URI: https://github.com/BellevueCollege/gf-sqlserver-integration
 Description: Moves Gravity Forms data to SQL Server for defined models
 Author: Bellevue College Integration Team
-Version: 1.3
+Version: 1.4
 Author URI: http://www.bellevuecollege.edu
 GitHub Plugin URI: bellevuecollege/gf-sqlserver-integration
 */
@@ -73,7 +73,7 @@ function gfsi_process_submission($entry, $action) {
         case 'HealthcareManagement_BAS':
             $model = new HealthcareManagement_BAS();
             break;
-        case 'RadiationImaging_BAS':
+        case 'RadiationImaging_BAS':           
             $model = new RadiationImaging_BAS();
             break;
         case 'MolecularBiosciences_BAS':
