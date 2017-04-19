@@ -31,6 +31,15 @@ require_once( 'classes/RadiologicTechnologyProgram_AA.php' );
 require_once( 'classes/HealthCareDataAnalyticsCertificate.php' );
 require_once( 'classes/DigitalMarketing_BAS.php');
 
+//Remove Amex from accepted card types
+add_filter("gform_creditcard_types", "remove_amex");
+function remove_amex($cards){
+    unset($cards[0]); // Removes AMEX from the list.
+    return $cards;
+}
+
+
+
 //attach processing to post payment action
 add_action('gform_post_payment_action', 'gfsi_process_submission', 10, 2);
 
