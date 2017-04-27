@@ -255,7 +255,7 @@ class HealthcareInformatics_BAS
 //        $this->req7_life_grade = !empty($_entry['60']) ? rgar($_entry, '60') : null;
 //        $this->req7_life_school = !empty($_entry['61']) ? rgar($_entry, '61') : null;
 
-        $this->prerequisite = !empty($_entry['71']) ? rgar($_entry, '71') : null;
+        $this->prerequisite = !empty($_entry['72']) ? rgar($_entry, '72') : null;
         $this->transcript_1 = !empty($_entry['68']) ? rgar($_entry, '68') : null;
         $this->transcript_2 = !empty($_entry['69']) ? rgar($_entry, '69') : null;
         $this->transcript_3 = !empty($_entry['70']) ? rgar($_entry, '70') : null;
