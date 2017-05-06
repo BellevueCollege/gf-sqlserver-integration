@@ -30,7 +30,9 @@ class HealthCareDataAnalyticsCertificate
 //    protected $req4_quarter;
 //    protected $req4_grade;
 //    protected $req4_school;
-    
+    protected $transcript_1;
+    protected $transcript_2;
+    protected $transcript_3;
     protected $prerequisite;
     protected $signature;
     protected $personal_stmt;
@@ -74,7 +76,10 @@ class HealthCareDataAnalyticsCertificate
 //                            . '@Req4CourseNameNumber = :Req4Course,'
 //                            . '@Req4QuarterSemester = :Req4Quarter,'
 //                            . '@Req4GradeEarned = :Req4Grade,'
-//                            . '@Req4SchoolAttended = :Req4School,'                           
+//                            . '@Req4SchoolAttended = :Req4School,'    
+                            . '@UnofficialTranscript1 = :UnofficialTranscript1,'
+                            . '@UnofficialTranscript2 = :UnofficialTranscript2,'
+                            . '@UnofficialTranscript3 = :UnofficialTranscript3,'
                             . '@Prerequisite = :Prerequisite,'
                             . '@Resume = :Resume,'
                             . '@PersonalStatement = :PersonalStatement,'
@@ -108,7 +113,10 @@ class HealthCareDataAnalyticsCertificate
 //                                        'Req4Course' => $this->req4_course,
 //                                        'Req4Quarter' => $this->req4_quarter,
 //                                        'Req4Grade' => $this->req4_grade,
-//                                        'Req4School' => $this->req4_school,                                        
+//                                        'Req4School' => $this->req4_school,
+                                        'UnofficialTranscript1' => $this->transcript_1,
+                                        'UnofficialTranscript2' => $this->transcript_2,
+                                        'UnofficialTranscript3' => $this->transcript_3,  
                                         'Prerequisite' => $this->prerequisite,
                                         'Resume' => $this->resume,
                                         'PersonalStatement' => $this->personal_stmt,
@@ -161,7 +169,9 @@ class HealthCareDataAnalyticsCertificate
 //        $this->req4_grade = !empty($_entry['25']) ? rgar($_entry, '25') : null;
 //        $this->req4_school = !empty($_entry['26']) ? rgar($_entry, '26') : null;
 
-        
+        $this->transcript_1 = !empty($_entry['44']) ? rgar($_entry, '44') : null;
+        $this->transcript_2 = !empty($_entry['45']) ? rgar($_entry, '45') : null;
+        $this->transcript_3 = !empty($_entry['46']) ? rgar($_entry, '46') : null;
         $this->resume = !empty($_entry['28']) ? rgar($_entry, '28') : null;
         $this->personal_stmt = !empty($_entry['30']) ? rgar($_entry, '30') : null;
         
