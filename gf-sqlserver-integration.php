@@ -11,7 +11,7 @@ GitHub Plugin URI: bellevuecollege/gf-sqlserver-integration
 
 defined ( 'ABSPATH' ) OR exit;
 
-file_exists('config.php') ? require_once('config.php') : die("Config file is missing");
+file_exists('config.php') ? require_once('config.php') : die("For Plugin gf-sqlserver-integration :: Config file is missing");
 require_once( 'classes/Transaction.php' );
 require_once( 'classes/AppliedAccounting_BAS.php');
 require_once( 'classes/ComputerScience_BS.php' );
