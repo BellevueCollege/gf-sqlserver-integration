@@ -28,9 +28,12 @@ class HealthCareInformaticsCertificate
 //    protected $req4_quarter;
 //    protected $req4_grade;
 //    protected $req4_school;
-    
+    protected $transcript_1;
+    protected $transcript_2;
+    protected $transcript_3;
     protected $prerequisite;
     protected $personal_stmt;
+    protected $signature;
     protected $transaction;
     protected $form_id;
     
@@ -71,10 +74,15 @@ class HealthCareInformaticsCertificate
 //                            . '@Req4CourseNameNumber = :Req4Course,'
 //                            . '@Req4QuarterSemester = :Req4Quarter,'
 //                            . '@Req4GradeEarned = :Req4Grade,'
-//                            . '@Req4SchoolAttended = :Req4School,'                           
+//                            . '@Req4SchoolAttended = :Req4School,'  
+                            . '@UnofficialTranscript1 = :UnofficialTranscript1,'
+                            . '@UnofficialTranscript2 = :UnofficialTranscript2,'
+                            . '@UnofficialTranscript3 = :UnofficialTranscript3,'
+                            . '@electronicSignature = :ElectronicSignature,'
                             . '@Prerequisite = :Prerequisite,'
                             . '@PersonalStatement = :PersonalStatement,'
                             . '@TransID = :TransID,'
+                        
                             . '@FormID = :FormID;';
                     $query = $conn->prepare( $tsql );
                     
@@ -103,10 +111,14 @@ class HealthCareInformaticsCertificate
 //                                        'Req4Course' => $this->req4_course,
 //                                        'Req4Quarter' => $this->req4_quarter,
 //                                        'Req4Grade' => $this->req4_grade,
-//                                        'Req4School' => $this->req4_school,                                        
+//                                        'Req4School' => $this->req4_school,
+                                        'UnofficialTranscript1' => $this->transcript_1,
+                                        'UnofficialTranscript2' => $this->transcript_2,
+                                        'UnofficialTranscript3' => $this->transcript_3,  
                                         'Prerequisite' => $this->prerequisite,
                                         'PersonalStatement' => $this->personal_stmt,
                                         'TransID' => $this->transaction->get_id(), 
+                                        'ElectronicSignature' => $this->signature,
                                         'FormID' => $this->form_id
                                     );                                                                        
                     $result = $query->execute($input_data);
@@ -152,12 +164,14 @@ class HealthCareInformaticsCertificate
 //        $this->req4_grade = !empty($_entry['25']) ? rgar($_entry, '25') : null;
 //        $this->req4_school = !empty($_entry['26']) ? rgar($_entry, '26') : null;
 
-        
+        $this->transcript_1 = !empty($_entry['41']) ? rgar($_entry, '41') : null;
+        $this->transcript_2 = !empty($_entry['42']) ? rgar($_entry, '42') : null;
+        $this->transcript_3 = !empty($_entry['43']) ? rgar($_entry, '43') : null;
 
         $this->personal_stmt = !empty($_entry['29']) ? rgar($_entry, '29') : null;
         
         $this->prerequisite = !empty($_entry['37']) ? rgar($_entry, '37') : null;
-        
+        $this->signature = !empty($_entry['45']) ? rgar($_entry, '45') : null;
         $this->form_id = rgar($_entry, 'form_id');
 
         //build transaction object
