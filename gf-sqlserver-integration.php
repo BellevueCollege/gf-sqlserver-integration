@@ -4,7 +4,7 @@ Plugin Name: Gravity Forms SQL Server Data Integration for Bellevue College
 Plugin URI: https://github.com/BellevueCollege/gf-sqlserver-integration
 Description: Moves Gravity Forms data to SQL Server for defined models
 Author: Bellevue College Integration Team
-Version: 1.6
+Version: 1.7
 Author URI: http://www.bellevuecollege.edu
 GitHub Plugin URI: bellevuecollege/gf-sqlserver-integration
 */
@@ -30,6 +30,7 @@ require_once( 'classes/HealthCareInformaticsCertificate.php' );
 require_once( 'classes/RadiologicTechnologyProgram_AA.php' );
 require_once( 'classes/HealthCareDataAnalyticsCertificate.php' );
 require_once( 'classes/DigitalMarketing_BAS.php');
+require_once( 'classes/ASNConference.php');
 
 //Remove Amex from accepted card types
 add_filter("gform_creditcard_types", "remove_amex");
@@ -39,9 +40,11 @@ function remove_amex($cards){
 }
 
 
-
 //attach processing to post payment action
 add_action('gform_post_payment_action', 'gfsi_process_submission', 10, 2);
+
+//process post submission, handle case when no payment.
+add_action( 'gform_after_submission', 'gfsi_after_submission', 10, 2 );
 
 //add settings submenu page to form settings
 add_filter('gform_form_settings_menu', 'gfsi_add_custom_form_settings_menu_item');
@@ -51,13 +54,11 @@ add_action('gform_form_settings_page_gfsi_custom_form_settings_page', 'gfsi_cust
 
 //process form submission
 function gfsi_process_submission($entry, $action) {
-
     GFCommon::log_debug( 'gform_post_payment_action: action =>' . print_r( $action, true ) );
 
     // Get form info so we can get the model type assigned to it 
     $this_form = GFAPI::get_form(rgar($entry, 'form_id'));  
     $model_type = rgar($this_form, 'gfsi_model');
-    //error_log("hello:".$model_type);
     //Instantiate model based on the model type set for the form
     $model = null;
     switch ($model_type) {
@@ -112,6 +113,11 @@ function gfsi_process_submission($entry, $action) {
             break;
         case 'DigitalMarketing_BAS':
             $model = new DigitalMarketing_BAS();
+            break;
+//        case 'ASNConference':
+//            error_log("Hello *********************************************");
+//            $model = new ConferenceRegistration();
+//            break;
         default:
             break;
     }
@@ -119,8 +125,7 @@ function gfsi_process_submission($entry, $action) {
     //If defined, build the chosen model from the form entry data
     try {
         if ( !empty($model) ) {
-            $model->build($entry);
-            //var_dump($model);
+            $model->build($entry);            
             $model->save();
            /*echo '<pre>';
             var_dump($model);
@@ -133,6 +138,38 @@ function gfsi_process_submission($entry, $action) {
     }
 
     GFCommon::log_debug( 'gform_post_payment_action: entry =>' . print_r( $entry, true ) );
+}
+
+function gfsi_after_submission($entry,$form)
+{
+    // Get form info so we can get the model type assigned to it 
+    $this_form = GFAPI::get_form(rgar($entry, 'form_id'));  
+    $model_type = rgar($this_form, 'gfsi_model');
+    
+    //Instantiate model based on the model type set for the form
+    $model = null;
+    switch ($model_type) {
+       case 'ASNConference':
+            $model = new ASNConference();
+            break;
+        default:
+            break; 
+    }
+    //If defined, build the chosen model from the form entry data
+    try {
+        if ( !empty($model) ) {
+            $model->build($entry);
+            //var_dump($model);
+            $model->save();
+           /*echo '<pre>';
+            var_dump($model);
+            echo '</pre>';*/
+        } else {
+            throw new Exception("After submission : Model is empty, likely no data model set for form " . $this_form["title"]);
+        } 
+    } catch ( Exception $e ) {
+        error_log( print_r("GF SQL Server Integration plugin :: After submission : error building and saving model - " . $e->getMessage(), true) );
+    }
 }
 
 // add a custom menu item to the Form Settings page menu
