@@ -125,7 +125,8 @@ class DigitalMarketing_BAS
         $this->transcript_1 = !empty($_entry['14']) ? rgar($_entry, '14') : null;
         $this->transcript_2 = !empty($_entry['65']) ? rgar($_entry, '65') : null;
         $this->transcript_3 = !empty($_entry['66']) ? rgar($_entry, '66') : null;
-        $this->personal_stmt = !empty($_entry['12']) ? rgar($_entry, '12') : null;
+        //$this->personal_stmt = !empty($_entry['12']) ? rgar($_entry, '12') : null;
+        $this->personal_stmt = !empty($_entry['73']) ? rgar($_entry, '73') : null;
         $this->signature = !empty($_entry['23']) ? rgar($_entry, '23') : null;
         $this->form_id = rgar($_entry, 'form_id');
 

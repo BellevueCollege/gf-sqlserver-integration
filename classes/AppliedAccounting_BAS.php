@@ -98,7 +98,8 @@ class AppliedAccounting_BAS
         $this->transcript_1 = !empty($_entry['14']) ? rgar($_entry, '14') : null;
         $this->transcript_2 = !empty($_entry['31']) ? rgar($_entry, '31') : null;
         $this->transcript_3 = !empty($_entry['32']) ? rgar($_entry, '32') : null;
-        $this->personal_stmt = !empty($_entry['12']) ? rgar($_entry, '12') : null;
+        //$this->personal_stmt = !empty($_entry['12']) ? rgar($_entry, '12') : null;
+        $this->personal_stmt = !empty($_entry['36']) ? rgar($_entry, '36') : null;
         $this->signature = !empty($_entry['23']) ? rgar($_entry, '23') : null;
         $this->form_id = rgar($_entry, 'form_id');
 
