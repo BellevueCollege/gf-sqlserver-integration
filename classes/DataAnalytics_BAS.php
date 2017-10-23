@@ -16,11 +16,12 @@ class DataAnalytics_BAS
     protected $transcript_1;
     protected $transcript_2;
     protected $transcript_3;
-    protected $personal_stmt;
+   // protected $personal_stmt;
     protected $signature;
     protected $transaction;
     protected $form_id;
-    
+    protected  $personal_statement_upload;
+    protected $do_uhave_another_college_credits;
     //public constructor
     public function __construct() {
 
@@ -48,9 +49,11 @@ class DataAnalytics_BAS
                             . '@UnofficialTrans1 = :UnofficialTranscript1,'
                             . '@UnofficialTrans2 = :UnofficialTranscript2,'
                             . '@UnofficialTrans3 = :UnofficialTranscript3,'
-                            . '@PersonalStatement = :PersonalStatement,'
+                         //   . '@PersonalStatement = :PersonalStatement,'
                             . '@EnrollmentStatus = :EnrollmentStatus,'
-                            . '@ElectronicSignature = :ElectronicSignature;';
+                            . '@ElectronicSignature = :ElectronicSignature,'
+                            . '@AnotherCollegeCredits = :AnotherCollegeCredits,' 
+                            . '@PersonalStatementUpload = :PersonalStatementUpload;';
                     $query = $conn->prepare( $tsql );
 
                     $input_data = array( 
@@ -67,9 +70,11 @@ class DataAnalytics_BAS
                                         'UnofficialTranscript1' => $this->transcript_1,
                                         'UnofficialTranscript2' => $this->transcript_2,
                                         'UnofficialTranscript3' => $this->transcript_3,
-                                        'PersonalStatement' => $this->personal_stmt,
+                                    //    'PersonalStatement' => $this->personal_stmt,
                                         'EnrollmentStatus' => $this->enroll_status,
-                                        'ElectronicSignature' => $this->signature
+                                        'ElectronicSignature' => $this->signature,
+                                        'AnotherCollegeCredits' => $this->do_uhave_another_college_credits,
+                                        'PersonalStatementUpload' => $this->personal_statement_upload
                                     );
 
                     $result = $query->execute($input_data);
@@ -102,10 +107,16 @@ class DataAnalytics_BAS
         $this->transcript_2 = !empty($_entry['56']) ? rgar($_entry, '56') : null;
         $this->transcript_3 = !empty($_entry['57']) ? rgar($_entry, '57') : null;
         //$this->personal_stmt = !empty($_entry['12']) ? rgar($_entry, '12') : null;
-        $this->personal_stmt = !empty($_entry['60']) ? rgar($_entry, '60') : null;
+        $this->personal_statement_upload = !empty($_entry['60']) ? rgar($_entry, '60') : null;
         $this->signature = !empty($_entry['23']) ? rgar($_entry, '23') : null;
         $this->form_id = rgar($_entry, 'form_id');
-
+         if ( empty($_entry['61']) ) {
+            $this->do_uhave_another_college_credits = null;
+        } else if ( !empty($_entry['61']) && strtolower(rgar($_entry, '61')) == "yes" ) {
+            $this->do_uhave_another_college_credits = true;
+        } else {
+            $this->do_uhave_another_college_credits = false;
+        }
         //build transaction object
         $this->transaction = new Transaction(
             rgar($_entry, 'transaction_id'),
