@@ -4,7 +4,7 @@ Plugin Name: Gravity Forms SQL Server Data Integration for Bellevue College
 Plugin URI: https://github.com/BellevueCollege/gf-sqlserver-integration
 Description: Moves Gravity Forms data to SQL Server for defined models
 Author: Bellevue College Integration Team
-Version: 1.7
+Version: 1.8
 Author URI: http://www.bellevuecollege.edu
 GitHub Plugin URI: bellevuecollege/gf-sqlserver-integration
 */
@@ -57,7 +57,10 @@ function gfsi_process_submission($entry, $action) {
     GFCommon::log_debug( 'gform_post_payment_action: action =>' . print_r( $action, true ) );
 
     // Get form info so we can get the model type assigned to it 
-    $this_form = GFAPI::get_form(rgar($entry, 'form_id'));  
+    $this_form = GFAPI::get_form(rgar($entry, 'form_id')); 
+    //error_log(print_r($this_form),true);
+   // var_dump($this_form);
+    //exit();
     $model_type = rgar($this_form, 'gfsi_model');
     //Instantiate model based on the model type set for the form
     $model = null;
@@ -124,12 +127,14 @@ function gfsi_process_submission($entry, $action) {
 
     //If defined, build the chosen model from the form entry data
     try {
+         
         if ( !empty($model) ) {
             $model->build($entry);            
             $model->save();
            /*echo '<pre>';
             var_dump($model);
             echo '</pre>';*/
+           // exit();
         } else {
             throw new Exception("Model is empty, likely no data model set for form " . $this_form["title"]);
         } 
@@ -148,6 +153,8 @@ function gfsi_after_submission($entry,$form)
     
     //Instantiate model based on the model type set for the form
     $model = null;
+    if($model_type != 'ASNConference')
+        return;
     switch ($model_type) {
        case 'ASNConference':
             $model = new ASNConference();
@@ -158,8 +165,7 @@ function gfsi_after_submission($entry,$form)
     //If defined, build the chosen model from the form entry data
     try {
         if ( !empty($model) ) {
-            $model->build($entry);
-            //var_dump($model);
+            $model->build($entry);           
             $model->save();
            /*echo '<pre>';
             var_dump($model);
