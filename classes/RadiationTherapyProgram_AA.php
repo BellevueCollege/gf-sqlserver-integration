@@ -9,42 +9,7 @@ class RadiationTherapyProgram_AA
     protected $sid;
     protected $email;
     protected $phone;
-
-//    protected $eng_comp_course;
-//    protected $eng_comp_term_completed;
-//    protected $eng_comp_grade_earned;
-//    protected $eng_comp_school_attended;
-//
-//    protected $int_alg_course;
-//    protected $int_alg_term_completed;
-//    protected $int_alg_grade_earned;
-//    protected $int_alg_school_attended;
-//    
-//    protected $other_hundred_math_course;
-//    protected $other_hundred_math_term_completed;
-//    protected $other_hundred_math_grade_earned;
-//    protected $other_hundred_math_school_attended;
-//    
-//    protected $ha_phyI_course;
-//    protected $ha_phyI_term_completed;
-//    protected $ha_phyI_grade_earned;
-//    protected $ha_phyI_school_attended;
-//
-//    protected $ha_phyII_course;
-//    protected $ha_phyII_term_completed;
-//    protected $ha_phyII_grade_earned;
-//    protected $ha_phyII_school_attended;
-//    
-//    protected $comm_intro_course;
-//    protected $comm_intro_term_completed;
-//    protected $comm_intro_grade_earned;
-//    protected $comm_intro_school_attended;
-//    
-//    protected $cultural_div_course;
-//    protected $cultural_div_term_completed;
-//    protected $cultural_div_grade_earned;
-//    protected $cultural_div_school_attended;
-    
+    protected $other_email;
     protected $did_attend_info_session;
     protected $date_attended;
     
@@ -57,17 +22,15 @@ class RadiationTherapyProgram_AA
     protected $clinical_site_name;
 
     protected $personal_stmt;
-    
-    protected $college_transcript_1;
-    protected $college_transcript_2;
-    protected $college_transcript_3;
-    protected $college_transcript_4;
+    protected $reapplicant_stmt;
+    protected $unofficial_transcript_1;
+    protected $unofficial_transcript_2;
+    protected $unofficial_transcript_3;
+    protected $unofficial_transcript_4;
     
     protected $hospital_observation_form;
     
     protected $prerequisite;
-
-
     protected $signature;
     protected $transaction;
     protected $form_id;
@@ -90,43 +53,8 @@ class RadiationTherapyProgram_AA
                             . '@Fname = :FirstName,'
                             . '@Lname = :LastName,'
                             . '@Phone = :Phone,'
-                            . '@Email = :Email,'
-                        
-//                            . '@EngCompCourse = :EngCompCourse,'
-//                            . '@EngCompTermCompleted = :EngCompTermCompleted,'
-//                            . '@EngCompGradeEarned = :EngCompGradeEarned,'
-//                            . '@EngCompSchoolAttended = :EngCompSchoolAttended,'
-//                        
-//                            . '@IntAlgCourse = :IntAlgCourse,'
-//                            . '@IntAlgTermCompleted = :IntAlgTermCompleted,'
-//                            . '@IntAlgGradeEarned = :IntAlgGradeEarned,'
-//                            . '@IntAlgSchoolAttended = :IntAlgSchoolAttended,'
-//                        
-//                            . '@OtherhundredMathCourse = :OtherhundredMathCourse,'
-//                            . '@OtherhundredMathTermCompleted = :OtherhundredMathTermCompleted,'
-//                            . '@OtherhundredMathGradeEarned = :OtherhundredMathGradeEarned,'
-//                            . '@OtherhundredMathSchoolAttended = :OtherhundredMathSchoolAttended,'
-//                        
-//                            . '@HAPhysICourse = :HAPhysICourse,'
-//                            . '@HAPhysITermCompleted = :HAPhysITermCompleted,'
-//                            . '@HAPhysIGradeEarned = :HAPhysIGradeEarned,'
-//                            . '@HAPhysISchoolAttended = :HAPhysISchoolAttended,'
-//                        
-//                            . '@HAPhysIICourse = :HAPhysIICourse,'
-//                            . '@HAPhysIITermCompleted = :HAPhysIITermCompleted,'
-//                            . '@HAPhysIIGradeEarned = :HAPhysIIGradeEarned,'
-//                            . '@HAPhysIISchoolAttended = :HAPhysIISchoolAttended,'
-//                        
-//                            . '@CommIntroCourse = :CommIntroCourse,'
-//                            . '@CommIntroTermCompleted = :CommIntroTermCompleted,'
-//                            . '@CommIntroGradeEarned = :CommIntroGradeEarned,'
-//                            . '@CommIntroSchoolAttended = :CommIntroSchoolAttended,'
-//                        
-//                            . '@CulturalDivCourse = :CulturalDivCourse,'
-//                            . '@CulturalDivTermCompleted = :CulturalDivTermCompleted,'
-//                            . '@CulturalDivGradeEarned = :CulturalDivGradeEarned,'
-//                            . '@CulturalDivSchoolAttended = :CulturalDivSchoolAttended,'
-                        
+                            . '@Email = :Email,'  
+                            . '@OtherEmail = :OtherEmail,'                              
                             . '@DidAttendInfoSession = :DidAttendInfoSession,'
                             . '@DateAttended = :DateAttended,'
                         
@@ -138,7 +66,7 @@ class RadiationTherapyProgram_AA
                         
                             . '@ClinicalSiteName = :ClinicalSiteName,'
                             . '@PersonalStatement = :PersonalStatement,'
-                        
+                            . '@ReApplicantStatement = :ReApplicantStatement,'
                             . '@UnofficialTranscript1 = :UnofficialTranscript1,'
                             . '@UnofficialTranscript2 = :UnofficialTranscript2,'
                             . '@UnofficialTranscript3 = :UnofficialTranscript3,'
@@ -156,43 +84,8 @@ class RadiationTherapyProgram_AA
                                         'FirstName' => $this->first_name,
                                         'LastName' => $this->last_name, 
                                         'Phone' => $this->phone,
-                                        'Email' => $this->email,
-                        
-//                                        'EngCompCourse' => $this->eng_comp_course,
-//                                        'EngCompTermCompleted' => $this->eng_comp_term_completed,
-//                                        'EngCompGradeEarned' => $this->eng_comp_grade_earned,
-//                                        'EngCompSchoolAttended' => $this->eng_comp_school_attended,
-//                        
-//                                        'IntAlgCourse'  => $this->int_alg_course,
-//                                        'IntAlgTermCompleted' => $this->int_alg_term_completed,
-//                                        'IntAlgGradeEarned' => $this->int_alg_grade_earned,
-//                                        'IntAlgSchoolAttended' => $this->int_alg_school_attended,
-//                        
-//                                        'OtherhundredMathCourse' => $this->other_hundred_math_course,
-//                                        'OtherhundredMathTermCompleted' => $this->other_hundred_math_term_completed,
-//                                        'OtherhundredMathGradeEarned' => $this->other_hundred_math_grade_earned,
-//                                        'OtherhundredMathSchoolAttended' => $this->other_hundred_math_school_attended,
-//                                        
-//                                        'HAPhysICourse' => $this->ha_phyI_course,
-//                                        'HAPhysITermCompleted' => $this->ha_phyI_term_completed,
-//                                        'HAPhysIGradeEarned' => $this->ha_phyI_grade_earned,
-//                                        'HAPhysISchoolAttended' => $this->ha_phyI_school_attended,
-//                        
-//                                        'HAPhysIICourse' => $this->ha_phyII_course,
-//                                        'HAPhysIITermCompleted' => $this->ha_phyII_term_completed,
-//                                        'HAPhysIIGradeEarned' => $this->ha_phyII_grade_earned,
-//                                        'HAPhysIISchoolAttended' => $this->ha_phyII_school_attended,
-//                        
-//                                        'CommIntroCourse' => $this->comm_intro_course,
-//                                        'CommIntroTermCompleted' => $this->comm_intro_term_completed,
-//                                        'CommIntroGradeEarned' => $this->comm_intro_grade_earned,
-//                                        'CommIntroSchoolAttended' => $this->comm_intro_school_attended,
-//                        
-//                                        'CulturalDivCourse' => $this->cultural_div_course,
-//                                        'CulturalDivTermCompleted' => $this->cultural_div_term_completed,
-//                                        'CulturalDivGradeEarned' => $this->cultural_div_grade_earned,
-//                                        'CulturalDivSchoolAttended' => $this->cultural_div_school_attended,
-//                        
+                                        'Email' => $this->email, 
+                                        'OtherEmail' => $this->other_email,
                                         'DidAttendInfoSession' => $this->did_attend_info_session,
                                         'DateAttended' => $this->date_attended,
                         
@@ -204,11 +97,11 @@ class RadiationTherapyProgram_AA
                         
                                         'ClinicalSiteName' => $this->clinical_site_name,
                                         'PersonalStatement' => $this->personal_stmt,
-                        
-                                        'UnofficialTranscript1' => $this->college_transcript_1,
-                                        'UnofficialTranscript2' => $this->college_transcript_2,
-                                        'UnofficialTranscript3' => $this->college_transcript_3,
-                                        'UnofficialTranscript4' => $this->college_transcript_4,
+                                        'ReApplicantStatement' => $this->reapplicant_stmt,
+                                        'UnofficialTranscript1' => $this->unofficial_transcript_1,
+                                        'UnofficialTranscript2' => $this->unofficial_transcript_2,
+                                        'UnofficialTranscript3' => $this->unofficial_transcript_3,
+                                        'UnofficialTranscript4' => $this->unofficial_transcript_4,
                         
                                         'HospitalObservationForm' => $this->hospital_observation_form,
                                         'Prerequisite' => $this->prerequisite,
@@ -238,114 +131,8 @@ class RadiationTherapyProgram_AA
         $this->last_name = !empty($_entry['2.6']) ? rgar($_entry, '2.6') : null;
         $this->sid = !empty($_entry['3']) ? rgar($_entry, '3') : null;
         $this->email = !empty($_entry['4']) ? rgar($_entry, '4') : null;
-        $this->phone = !empty($_entry['5']) ? rgar($_entry, '5') : null;
-        
-        //process transfer english info
-//        if ( !empty($_entry['8']) ){
-//            $class_data = unserialize(rgar( $_entry, '8' ));
-//
-//            $this->eng_comp_course = !empty($class_data[0]["Course"]) ? $class_data[0]["Course"] : null;
-//            $this->eng_comp_term_completed = !empty($class_data[0]["Term completed"]) ? $class_data[0]["Term completed"] : null;
-//            $this->eng_comp_grade_earned = !empty($class_data[0]["Grade"]) ? $class_data[0]["Grade"] : null;
-//            $this->eng_comp_school_attended = !empty($class_data[0]["School"]) ? $class_data[0]["School"] : null;
-//        } else {
-//            $this->eng_comp_course = null;
-//            $this->eng_comp_term_completed = null;
-//            $this->eng_comp_grade_earned = null;
-//            $this->eng_comp_school_attended = null;
-//        }
-//        
-//        //process Intermediate Algebra or Precalculus info
-//        if ( !empty($_entry['10']) ){
-//            $class_data = unserialize(rgar( $_entry, '10' ));
-//
-//            $this->int_alg_course = !empty($class_data[0]["Course"]) ? $class_data[0]["Course"] : null;
-//            $this->int_alg_term_completed = !empty($class_data[0]["Term completed"]) ? $class_data[0]["Term completed"] : null;
-//            $this->int_alg_grade_earned = !empty($class_data[0]["Grade"]) ? $class_data[0]["Grade"] : null;
-//            $this->int_alg_school_attended = !empty($class_data[0]["School"]) ? $class_data[0]["School"] : null;
-//        } else {
-//            $this->int_alg_course = null;
-//            $this->int_alg_term_completed = null;
-//            $this->int_alg_grade_earned = null;
-//            $this->int_alg_school_attended = null;
-//        }
-//        
-//        //process Other 100 level math course info
-//        if ( !empty($_entry['11']) ){
-//            $class_data = unserialize(rgar( $_entry, '11' ));
-//
-//            $this->other_hundred_math_course = !empty($class_data[0]["Course"]) ? $class_data[0]["Course"] : null;
-//            $this->other_hundred_math_term_completed = !empty($class_data[0]["Term completed"]) ? $class_data[0]["Term completed"] : null;
-//            $this->other_hundred_math_grade_earned = !empty($class_data[0]["Grade"]) ? $class_data[0]["Grade"] : null;
-//            $this->other_hundred_math_school_attended = !empty($class_data[0]["School"]) ? $class_data[0]["School"] : null;
-//        } else {
-//            $this->other_hundred_math_course = null;
-//            $this->other_hundred_math_term_completed = null;
-//            $this->other_hundred_math_grade_earned = null;
-//            $this->other_hundred_math_school_attended = null;
-//        }
-//        
-//        //process human anatomy & physiology I
-//        if ( !empty($_entry['12']) ){
-//            $class_data = unserialize(rgar( $_entry, '12' ));
-//
-//            $this->ha_phyI_course = !empty($class_data[0]["Course"]) ? $class_data[0]["Course"] : null;
-//            $this->ha_phyI_term_completed = !empty($class_data[0]["Term completed"]) ? $class_data[0]["Term completed"] : null;
-//            $this->ha_phyI_grade_earned = !empty($class_data[0]["Grade"]) ? $class_data[0]["Grade"] : null;
-//            $this->ha_phyI_school_attended = !empty($class_data[0]["School"]) ? $class_data[0]["School"] : null;
-//        } else {
-//            $this->ha_phyI_course = null;
-//            $this->ha_phyI_term_completed = null;
-//            $this->ha_phyI_grade_earned = null;
-//            $this->ha_phyI_school_attended = null;
-//        }
-//        
-//        //process human anatomy & physiology II
-//        if ( !empty($_entry['13']) ){
-//            $class_data = unserialize(rgar( $_entry, '13' ));
-//
-//            $this->ha_phyII_course = !empty($class_data[0]["Course"]) ? $class_data[0]["Course"] : null;
-//            $this->ha_phyII_term_completed = !empty($class_data[0]["Term completed"]) ? $class_data[0]["Term completed"] : null;
-//            $this->ha_phyII_grade_earned = !empty($class_data[0]["Grade"]) ? $class_data[0]["Grade"] : null;
-//            $this->ha_phyII_school_attended = !empty($class_data[0]["School"]) ? $class_data[0]["School"] : null;
-//        } else {
-//            $this->ha_phyII_course = null;
-//            $this->ha_phyII_term_completed = null;
-//            $this->ha_phyII_grade_earned = null;
-//            $this->ha_phyII_school_attended = null;
-//        }
-//        
-//        //process Introduction to Communication info
-//        if ( !empty($_entry['14']) ){
-//            $class_data = unserialize(rgar( $_entry, '14' ));
-//
-//            $this->comm_intro_course = !empty($class_data[0]["Course"]) ? $class_data[0]["Course"] : null;
-//            $this->comm_intro_term_completed = !empty($class_data[0]["Term completed"]) ? $class_data[0]["Term completed"] : null;
-//            $this->comm_intro_grade_earned = !empty($class_data[0]["Grade"]) ? $class_data[0]["Grade"] : null;
-//            $this->comm_intro_school_attended = !empty($class_data[0]["School"]) ? $class_data[0]["School"] : null;
-//        } else {
-//            $this->comm_intro_course = null;
-//            $this->comm_intro_term_completed = null;
-//            $this->comm_intro_grade_earned = null;
-//            $this->comm_intro_school_attended = null;
-//        }
-//        
-//        //process cultural diversity course info
-//        if ( !empty($_entry['15']) ){
-//            $class_data = unserialize(rgar( $_entry, '15' ));
-//
-//            $this->cultural_div_course = !empty($class_data[0]["Course"]) ? $class_data[0]["Course"] : null;
-//            $this->cultural_div_term_completed = !empty($class_data[0]["Term completed"]) ? $class_data[0]["Term completed"] : null;
-//            $this->cultural_div_grade_earned = !empty($class_data[0]["Grade"]) ? $class_data[0]["Grade"] : null;
-//            $this->cultural_div_school_attended = !empty($class_data[0]["School"]) ? $class_data[0]["School"] : null;
-//        } else {
-//            $this->cultural_div_course = null;
-//            $this->cultural_div_term_completed = null;
-//            $this->cultural_div_grade_earned = null;
-//            $this->cultural_div_school_attended = null;
-//        }
-//        
-        
+        $this->phone = !empty($_entry['5']) ? rgar($_entry, '5') : null;  
+        $this->other_email = !empty($_entry['44']) ? rgar($_entry, '44') : null;
         if ( empty($_entry['16']) ) {
             $this->did_attend_info_session = null;
         } else if ( !empty($_entry['16']) && strtolower(rgar($_entry, '16')) == "yes" ) {
@@ -377,10 +164,11 @@ class RadiationTherapyProgram_AA
         $this->date_completed = !empty($_entry['21']) ? rgar($_entry, '21') : null;
         $this->clinical_site_name = !empty($_entry['22']) ? rgar($_entry, '22') : null;
         $this->personal_stmt = !empty($_entry['23']) ? rgar($_entry, '23') : null;
-        $this->college_transcript_1 = !empty($_entry['25']) ? rgar($_entry, '25') : null;
-        $this->college_transcript_2 = !empty($_entry['26']) ? rgar($_entry, '26') : null;
-        $this->college_transcript_3 = !empty($_entry['27']) ? rgar($_entry, '27') : null;
-        $this->college_transcript_4 = !empty($_entry['28']) ? rgar($_entry, '28') : null;
+        $this->reapplicant_stmt = !empty($_entry['43']) ? rgar($_entry, '43') : null;
+        $this->unofficial_transcript_1 = !empty($_entry['25']) ? rgar($_entry, '25') : null;
+        $this->unofficial_transcript_2 = !empty($_entry['26']) ? rgar($_entry, '26') : null;
+        $this->unofficial_transcript_3 = !empty($_entry['27']) ? rgar($_entry, '27') : null;
+        $this->unofficial_transcript_4 = !empty($_entry['28']) ? rgar($_entry, '28') : null;
         $this->hospital_observation_form = !empty($_entry['31']) ? rgar($_entry, '31') : null;
         $this->prerequisite = !empty($_entry['42']) ? rgar($_entry, '42') : null;
         
