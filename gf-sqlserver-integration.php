@@ -31,6 +31,7 @@ require_once( 'classes/RadiologicTechnologyProgram_AA.php' );
 require_once( 'classes/HealthCareDataAnalyticsCertificate.php' );
 require_once( 'classes/DigitalMarketing_BAS.php');
 require_once( 'classes/ASNConference.php');
+require_once( 'classes/NursingAssistantCertifiedProgram.php');
 
 //Remove Amex from accepted card types
 add_filter("gform_creditcard_types", "remove_amex");
@@ -116,6 +117,9 @@ function gfsi_process_submission($entry, $action) {
             break;
         case 'DigitalMarketing_BAS':
             $model = new DigitalMarketing_BAS();
+            break;
+        case 'NursingAssistantCertifiedProgram':
+            $model = new NursingAssistantCertifiedProgram();
             break;
 //        case 'ASNConference':
 //            error_log("Hello *********************************************");
