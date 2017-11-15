@@ -119,8 +119,22 @@ class NuclearMedicineProgram_AA
         $this->year_last_applied = !empty($_entry['46']) ? rgar($_entry, '46') : null;        
       
         $this->acceptable_locations = !empty($_entry['50.1']) ? rgar($_entry, '50.1') : ''; 
-        $this->acceptable_locations .= !empty($_entry['50.2']) ? rgar($_entry, '50.2') : ''; 
-        $this->acceptable_locations .= !empty($_entry['50.3']) ? rgar($_entry, '50.3') : '';
+        if(!empty($_entry['50.2']))
+        {
+            if(strlen($this->acceptable_locations) > 0)
+                 $this->acceptable_locations .= ','.rgar($_entry, '50.2');
+            else
+                 $this->acceptable_locations .= rgar($_entry, '50.2');                
+        }
+        
+        if(!empty($_entry['50.3']))
+        {
+            if(strlen($this->acceptable_locations) > 0)
+                 $this->acceptable_locations .= ','.rgar($_entry, '50.3');
+            else
+                 $this->acceptable_locations .= rgar($_entry, '50.3')  ;              
+        }
+      
         
         $this->personal_stmt = !empty($_entry['23']) ? rgar($_entry, '23') : null;
        
