@@ -33,6 +33,7 @@ require_once( 'classes/DigitalMarketing_BAS.php');
 require_once( 'classes/ASNConference.php');
 require_once( 'classes/NursingAssistantCertifiedProgram.php');
 require_once( 'classes/RAIS_DosimetryConcentration.php');
+require_once( 'classes/NuclearMedicineProgram_AA.php');
 //Remove Amex from accepted card types
 add_filter("gform_creditcard_types", "remove_amex");
 function remove_amex($cards){
@@ -123,6 +124,9 @@ function gfsi_process_submission($entry, $action) {
             break;
         case 'RAIS_DosimetryConcentration' :
             $model = new RAIS_DosimetryConcentration();
+            break;
+         case 'NuclearMedicineProgram_AA' :
+            $model = new NuclearMedicineProgram_AA();
             break;
 //        case 'ASNConference':
 //            error_log("Hello *********************************************");
