@@ -4,7 +4,7 @@ Plugin Name: Gravity Forms SQL Server Data Integration for Bellevue College
 Plugin URI: https://github.com/BellevueCollege/gf-sqlserver-integration
 Description: Moves Gravity Forms data to SQL Server for defined models
 Author: Bellevue College Integration Team
-Version: 1.8
+Version: 1.9
 Author URI: http://www.bellevuecollege.edu
 GitHub Plugin URI: bellevuecollege/gf-sqlserver-integration
 */
@@ -31,7 +31,10 @@ require_once( 'classes/RadiologicTechnologyProgram_AA.php' );
 require_once( 'classes/HealthCareDataAnalyticsCertificate.php' );
 require_once( 'classes/DigitalMarketing_BAS.php');
 require_once( 'classes/ASNConference.php');
-
+require_once( 'classes/NursingAssistantCertifiedProgram.php');
+require_once( 'classes/RAIS_DosimetryConcentration.php');
+require_once( 'classes/NuclearMedicineProgram_AA.php');
+require_once( 'classes/DiagnosticUltrasoundTechnologyProgram_AA.php');
 //Remove Amex from accepted card types
 add_filter("gform_creditcard_types", "remove_amex");
 function remove_amex($cards){
@@ -116,6 +119,18 @@ function gfsi_process_submission($entry, $action) {
             break;
         case 'DigitalMarketing_BAS':
             $model = new DigitalMarketing_BAS();
+            break;
+        case 'NursingAssistantCertifiedProgram':
+            $model = new NursingAssistantCertifiedProgram();
+            break;
+        case 'RAIS_DosimetryConcentration' :
+            $model = new RAIS_DosimetryConcentration();
+            break;
+         case 'NuclearMedicineProgram_AA' :
+            $model = new NuclearMedicineProgram_AA();
+            break;
+        case 'DiagnosticUltrasoundTechnologyProgram_AA' :
+            $model = new DiagnosticUltrasoundTechnologyProgram_AA();
             break;
 //        case 'ASNConference':
 //            error_log("Hello *********************************************");
