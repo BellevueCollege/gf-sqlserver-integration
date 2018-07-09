@@ -9,6 +9,7 @@ class AppliedAccounting_BAS
     protected $last_name;
     protected $sid;
     protected $email;
+    protected $personal_email;
     protected $phone;
     protected $highest_ed;
     protected $program_start;
@@ -44,6 +45,7 @@ class AppliedAccounting_BAS
                             . '@FormID = :FormID,'
                             . '@SID = :SID,'
                             . '@Email = :Email,'
+                            . '@PersonalEmail = :PersonalEmail,'
                             . '@Phone = :Phone,'
                             . '@EducationLevel = :EducationLevel,'
                             . '@IntendedPS = :IntendedProgramStart,'
@@ -63,6 +65,7 @@ class AppliedAccounting_BAS
                                         'LastName' => $this->last_name, 
                                         'FormID' => $this->form_id,
                                         'SID' => $this->sid,
+                                        'PersonalEmail' => $this->personal_email,
                                         'Email' => $this->email,
                                         'Phone' => $this->phone,
                                         'EducationLevel' => $this->highest_ed,
@@ -98,6 +101,7 @@ class AppliedAccounting_BAS
         $this->last_name = !empty($_entry['1.6']) ? rgar($_entry, '1.6') : null;
         $this->sid = !empty($_entry['3']) ? rgar($_entry, '3') : null;
         $this->email = !empty($_entry['4']) ? rgar($_entry, '4') : null;
+        $this->personal_email = !empty($_entry['42']) ? rgar($_entry, '42') : null;
         $this->phone = !empty($_entry['5']) ? rgar($_entry, '5') : null;
         $this->highest_ed = !empty($_entry['6']) ? rgar($_entry, '6') : null;
         $this->program_start = !empty($_entry['8']) ? rgar($_entry, '8') : null;
