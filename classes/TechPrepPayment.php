@@ -15,6 +15,8 @@ class TechPrepPayment
     protected $tech_prep_id;
     protected $transaction;
     protected $form_id;
+    protected $school_district;
+    protected $school;
     
     //public constructor
     public function __construct() {
@@ -37,7 +39,9 @@ class TechPrepPayment
                             . '@DOB = :Dob,'
                             . '@Email = :Email,'
                             . '@Phone = :Phone,'
-                            . '@TechPrepID = :TechPrepID;';
+                            . '@TechPrepID = :TechPrepID,'
+                            . '@SchoolDistrict = :SchoolDistrict,'
+                            . '@School = :School;';
                     $query = $conn->prepare( $tsql );
 
                     $input_data = array( 
@@ -48,7 +52,9 @@ class TechPrepPayment
                                         'Email' => $this->email,
                                         'Phone' => $this->phone,
                                         'Dob' => $this->dob,
-                                        'TechPrepID' => $this->tech_prep_id
+                                        'TechPrepID' => $this->tech_prep_id,
+                                        'SchoolDistrict' => $this->school_district,
+                                        'School' => $this->school,
                                     );
 
                     $result = $query->execute($input_data);
@@ -67,6 +73,56 @@ class TechPrepPayment
 
     //fill in model information from form entry information
     public function build($_entry) {
+        /**
+         * Fields on the form that may contain the school name
+         */
+        $school_fields = [
+            '17',
+            '51',
+            '19',
+            '18',
+            '20',
+            '21',
+            '22',
+            '23',
+            '24',
+            '25',
+            '26',
+            '27',
+            '28',
+            '29',
+            '30',
+            '31',
+            '32',
+            '33',
+            '34',
+            '35',
+            '36',
+            '37',
+            '38',
+            '39',
+            '40',
+            '41',
+            '42',
+            '43',
+            '44',
+            '46',
+            '47',
+            '48',
+            '49',
+            '50',
+        ];
+
+        /**
+         * Check to see if each field is empty
+         */
+        $school_name;
+        foreach( $school_fields as $id ) {
+            if ( ! empty( $_entry[$id] ) && 'Not Listed' !== $_entry[$id] ) {
+                $school_name = rgar( $_entry, $id );
+            }
+        }
+
         //set model info using entry values
         $this->first_name = !empty($_entry['1.3']) ? rgar($_entry, '1.3') : null;
         $this->last_name = !empty($_entry['1.6']) ? rgar($_entry, '1.6') : null;
@@ -74,6 +130,8 @@ class TechPrepPayment
         $this->phone = !empty($_entry['3']) ? rgar($_entry, '3') : null;
         $this->dob = !empty($_entry['4']) ? rgar($_entry, '4') : null;
         $this->tech_prep_id = !empty($_entry['5']) ? rgar($_entry, '5') : null;
+        $this->school_district = !empty($_entry['16']) ? rgar($_entry, '16') : null;
+        $this->school = $school_name;
         $this->form_id = rgar($_entry, 'form_id');
 
         //build transaction object
