@@ -1,3 +1,4 @@
 # ignore config file
 config.php
 /nbproject/private/
+.DS_Store
