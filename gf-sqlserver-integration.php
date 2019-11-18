@@ -60,8 +60,8 @@ add_action('gform_form_settings_page_gfsi_custom_form_settings_page', 'gfsi_cust
 function gfsi_process_submission($entry, $action) {
     GFCommon::log_debug( 'gform_post_payment_action: action =>' . print_r( $action, true ) );
 
-    // Get form info so we can get the model type assigned to it 
-    $this_form = GFAPI::get_form(rgar($entry, 'form_id')); 
+    // Get form info so we can get the model type assigned to it
+    $this_form = GFAPI::get_form(rgar($entry, 'form_id'));
     //error_log(print_r($this_form),true);
    // var_dump($this_form);
     //exit();
@@ -90,7 +90,7 @@ function gfsi_process_submission($entry, $action) {
         case 'HealthcareManagement_BAS':
             $model = new HealthcareManagement_BAS();
             break;
-        case 'RadiationImaging_BAS':           
+        case 'RadiationImaging_BAS':
             $model = new RadiationImaging_BAS();
             break;
         case 'MolecularBiosciences_BAS':
@@ -146,9 +146,9 @@ function gfsi_process_submission($entry, $action) {
 
     //If defined, build the chosen model from the form entry data
     try {
-         
+
         if ( !empty($model) ) {
-            $model->build($entry);            
+            $model->build($entry);
             $model->save();
            /*echo '<pre>';
             var_dump($model);
@@ -156,7 +156,7 @@ function gfsi_process_submission($entry, $action) {
            // exit();
         } else {
             throw new Exception("Model is empty, likely no data model set for form " . $this_form["title"]);
-        } 
+        }
     } catch ( Exception $e ) {
         error_log( print_r("GF SQL Server Integration plugin :: error building and saving model - " . $e->getMessage(), true) );
     }
@@ -166,10 +166,10 @@ function gfsi_process_submission($entry, $action) {
 
 function gfsi_after_submission($entry,$form)
 {
-    // Get form info so we can get the model type assigned to it 
-    $this_form = GFAPI::get_form(rgar($entry, 'form_id'));  
+    // Get form info so we can get the model type assigned to it
+    $this_form = GFAPI::get_form(rgar($entry, 'form_id'));
     $model_type = rgar($this_form, 'gfsi_model');
-    
+
     //Instantiate model based on the model type set for the form
     $model = null;
     if($model_type != 'ASNConference')
@@ -179,19 +179,19 @@ function gfsi_after_submission($entry,$form)
             $model = new ASNConference();
             break;
         default:
-            break; 
+            break;
     }
     //If defined, build the chosen model from the form entry data
     try {
         if ( !empty($model) ) {
-            $model->build($entry);           
+            $model->build($entry);
             $model->save();
            /*echo '<pre>';
             var_dump($model);
             echo '</pre>';*/
         } else {
             throw new Exception("After submission : Model is empty, likely no data model set for form " . $this_form["title"]);
-        } 
+        }
     } catch ( Exception $e ) {
         error_log( print_r("GF SQL Server Integration plugin :: After submission : error building and saving model - " . $e->getMessage(), true) );
     }
@@ -199,25 +199,25 @@ function gfsi_after_submission($entry,$form)
 
 // add a custom menu item to the Form Settings page menu
 function gfsi_add_custom_form_settings_menu_item( $menu_items ) {
-    
+
     $menu_items[] = array(
         'name' => 'gfsi_custom_form_settings_page',
         'label' => __( 'BC SQL Server Data Integration' )
         );
-    
+
     return $menu_items;
 }
 
 // handle displaying content for our custom menu when selected
 function gfsi_custom_form_settings_page() {
 
-    //only provide our menu item if person has appropriate permissions    
+    //only provide our menu item if person has appropriate permissions
     if ( current_user_can('manage_options') ) {
         $form_id = isset( $_GET['id'] ) ? $_GET['id'] : null;
         if ( $form = GFFormsModel::get_form_meta( $form_id ) ) {
 
             GFFormSettings::page_header();
-        
+
             include dirname( __FILE__ ) . '/content/sqlserver-integration-menu-page.php';
 
             GFFormSettings::page_footer();
@@ -226,5 +226,5 @@ function gfsi_custom_form_settings_page() {
     } else {
         echo __("You do not have the correct permissions to update this setting.");
     }
-    
+
 }

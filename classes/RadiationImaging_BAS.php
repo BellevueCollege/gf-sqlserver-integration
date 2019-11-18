@@ -35,7 +35,7 @@ class RadiationImaging_BAS
     protected $desired_clinical_region;
    // protected $certification_requirement;
     protected $certifying_organization;
-    
+
     //public constructor
     public function __construct() {
 
@@ -84,10 +84,10 @@ class RadiationImaging_BAS
                             . '@certifyingOrganization = :CertifyingOrganization'
                             . ';';
                     $query = $conn->prepare( $tsql );
-                    $input_data = array( 
-                                    'TransID' => $this->transaction->get_id(), 
+                    $input_data = array(
+                                    'TransID' => $this->transaction->get_id(),
                                     'FirstName' => $this->first_name,
-                                    'LastName' => $this->last_name, 
+                                    'LastName' => $this->last_name,
                                     'FormID' => $this->form_id,
                                     'SID' => $this->sid,
                                     'Email' => $this->email,
@@ -127,7 +127,7 @@ class RadiationImaging_BAS
             } catch (Exception $e) {
                 error_log( print_r("General exception in RadiationImaging_BAS::save - " . $e->getMessage(), true) );
             }
-        }       
+        }
         return false;
     }
 
@@ -170,7 +170,7 @@ class RadiationImaging_BAS
         $this->clinical_applying_for = !empty($_entry['51']) ? rgar($_entry, '51') : null;
         $this->desired_clinical_practium_for = !empty($_entry['52']) ? rgar($_entry, '52') : null;
         $this->desired_clinical_region = !empty($_entry['53']) ? rgar($_entry, '53') : null;
-        
+
         $this->certifying_organization = !empty($_entry['54']) ? rgar($_entry, '54') : null;
         $this->form_id = rgar($_entry, 'form_id');
 
