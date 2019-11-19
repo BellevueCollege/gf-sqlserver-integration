@@ -1,0 +1,9 @@
+{
+    "name": "bellevuecollege/gf-sqlserver-integration",
+    "type": "project",
+    "require": {},
+    "require-dev": {
+        "wp-coding-standards/wpcs": "^2.2",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0"
+    }
+}

@@ -8,16 +8,21 @@ class RadiationImaging_BAS
     protected $last_name;
     protected $sid;
     protected $email;
+    protected $personal_email;
     protected $phone;
     protected $enroll_status;
     protected $concentration;
     protected $have_certification;
     protected $certification_file;
-    protected $anticipated_certificate;
+    protected $anticipated_certificate; // Removed in form, but required in Stored Procedure.
     protected $anticipated_certificate_date;
     protected $transcript_1;
     protected $transcript_2;
     protected $transcript_3;
+    protected $attended_college_1;
+    protected $attended_college_2;
+    protected $attended_college_3;
+
     protected $personal_stmt;
     protected $signature;
     protected $transaction;
@@ -30,7 +35,7 @@ class RadiationImaging_BAS
     protected $desired_clinical_region;
    // protected $certification_requirement;
     protected $certifying_organization;
-    
+
     //public constructor
     public function __construct() {
 
@@ -52,15 +57,20 @@ class RadiationImaging_BAS
                             . '@FormID = :FormID,'
                             . '@SID = :SID,'
                             . '@BCEmail = :Email,'
+                            . '@PersonalEmail = :PersonalEmail,'
                             . '@Phone = :Phone,'
                             . '@Concentration = :Concentration,'
                             . '@HaveNationalCertification = :HaveCertification,'
                             . '@CurrentCertificationFile = :CertificationFile,'
-                            . '@AnticipatedCertificate = :AnticipatedCertificate,'
+                            . '@AnticipatedCertificate = :AnticipatedCertificate,' // Removed in form, but required in Stored Procedure.
                             . '@AnticipatedCertCompletionDate = :AnticipatedCertCompletionDate,'
-                            . '@UnofficialTrans1 = :UnofficialTranscript1,'
-                            . '@UnofficialTrans2 = :UnofficialTranscript2,'
-                            . '@UnofficialTrans3 = :UnofficialTranscript3,'
+                            . '@UnofficialTrans1 = :UnofficialTranscript1,' // Removed in form, but required in Stored Procedure.
+                            . '@UnofficialTrans2 = :UnofficialTranscript2,' // Removed in form, but required in Stored Procedure.
+                            . '@UnofficialTrans3 = :UnofficialTranscript3,' // Removed in form, but required in Stored Procedure.
+                            . '@CollegeAttended1 = :CollegeAttended1,'
+                            . '@CollegeAttended2 = :CollegeAttended2,'
+                            . '@CollegeAttended3 = :CollegeAttended3,'
+
                             . '@PersonalStatementupload = :PersonalStatement,' // Personal stmt field changed from text to file upload
                             . '@EnrollmentStatus = :EnrollmentStatus,'
                             . '@ElectronicSignature = :ElectronicSignature,'
@@ -74,22 +84,26 @@ class RadiationImaging_BAS
                             . '@certifyingOrganization = :CertifyingOrganization'
                             . ';';
                     $query = $conn->prepare( $tsql );
-                    $input_data = array( 
-                                    'TransID' => $this->transaction->get_id(), 
+                    $input_data = array(
+                                    'TransID' => $this->transaction->get_id(),
                                     'FirstName' => $this->first_name,
-                                    'LastName' => $this->last_name, 
+                                    'LastName' => $this->last_name,
                                     'FormID' => $this->form_id,
                                     'SID' => $this->sid,
                                     'Email' => $this->email,
+                                    'PersonalEmail' => $this->personal_email,
                                     'Phone' => $this->phone,
                                     'Concentration' => $this->concentration,
                                     'HaveCertification' => $this->have_certification,
                                     'CertificationFile' => $this->certification_file,
-                                    'AnticipatedCertificate' => $this->anticipated_certificate,
+                                    'AnticipatedCertificate' => $this->anticipated_certificate, // Removed in form, but required in Stored Procedure.
                                     'AnticipatedCertCompletionDate' => $this->anticipated_certificate_date,
-                                    'UnofficialTranscript1' => $this->transcript_1,
-                                    'UnofficialTranscript2' => $this->transcript_2,
-                                    'UnofficialTranscript3' => $this->transcript_3,
+                                    'UnofficialTranscript1' => $this->transcript_1, // Removed in form, but required in Stored Procedure.
+                                    'UnofficialTranscript2' => $this->transcript_2, // Removed in form, but required in Stored Procedure.
+                                    'UnofficialTranscript3' => $this->transcript_3, // Removed in form, but required in Stored Procedure.
+                                    'CollegeAttended1' => $this->attended_college_1,
+                                    'CollegeAttended2' => $this->attended_college_2,
+                                    'CollegeAttended3' => $this->attended_college_3,
                                     'PersonalStatement' => $this->personal_stmt,
                                     'EnrollmentStatus' => $this->enroll_status,
                                     'ElectronicSignature' => $this->signature,
@@ -113,7 +127,7 @@ class RadiationImaging_BAS
             } catch (Exception $e) {
                 error_log( print_r("General exception in RadiationImaging_BAS::save - " . $e->getMessage(), true) );
             }
-        }       
+        }
         return false;
     }
 
@@ -124,6 +138,7 @@ class RadiationImaging_BAS
         $this->last_name = !empty($_entry['1.6']) ? rgar($_entry, '1.6') : null;
         $this->sid = !empty($_entry['3']) ? rgar($_entry, '3') : null;
         $this->email = !empty($_entry['4']) ? rgar($_entry, '4') : null;
+        $this->personal_email = !empty($_entry['57']) ? rgar($_entry, '57') : null;
         $this->phone = !empty($_entry['5']) ? rgar($_entry, '5') : null;
         $this->enroll_status = !empty($_entry['9']) ? rgar($_entry, '9') : null;
         $this->concentration = !empty($_entry['25']) ? rgar($_entry, '25') : null;
@@ -137,12 +152,16 @@ class RadiationImaging_BAS
         }
 
         $this->certification_file = !empty($_entry['37']) ? rgar($_entry, '37') : null;
-        $this->anticipated_certificate = !empty($_entry['35']) ? rgar($_entry, '35') : null;
+        $this->anticipated_certificate = !empty($_entry['35']) ? rgar($_entry, '35') : null; // Removed in form, but required in Stored Procedure.
         $this->anticipated_certificate_date = !empty($_entry['36']) ? rgar($_entry, '36') : null;
 
-        $this->transcript_1 = !empty($_entry['14']) ? rgar($_entry, '14') : null;
-        $this->transcript_2 = !empty($_entry['42']) ? rgar($_entry, '42') : null;
-        $this->transcript_3 = !empty($_entry['43']) ? rgar($_entry, '43') : null;
+        $this->transcript_1 = !empty($_entry['14']) ? rgar($_entry, '14') : null; // Removed in form, but required in Stored Procedure.
+        $this->transcript_2 = !empty($_entry['42']) ? rgar($_entry, '42') : null; // Removed in form, but required in Stored Procedure.
+        $this->transcript_3 = !empty($_entry['43']) ? rgar($_entry, '43') : null; // Removed in form, but required in Stored Procedure.
+        $this->attended_college_1 = !empty($_entry['59']) ? rgar($_entry, '59') : null;
+        $this->attended_college_2 = !empty($_entry['60']) ? rgar($_entry, '60') : null;
+        $this->attended_college_3 = !empty($_entry['61']) ? rgar($_entry, '61') : null;
+
         $this->personal_stmt = !empty($_entry['55']) ? rgar($_entry, '55') : null;
         $this->signature = !empty($_entry['23']) ? rgar($_entry, '23') : null;
         $this->applying_program = !empty($_entry['47']) ? rgar($_entry, '47') : null;
@@ -151,7 +170,7 @@ class RadiationImaging_BAS
         $this->clinical_applying_for = !empty($_entry['51']) ? rgar($_entry, '51') : null;
         $this->desired_clinical_practium_for = !empty($_entry['52']) ? rgar($_entry, '52') : null;
         $this->desired_clinical_region = !empty($_entry['53']) ? rgar($_entry, '53') : null;
-        
+
         $this->certifying_organization = !empty($_entry['54']) ? rgar($_entry, '54') : null;
         $this->form_id = rgar($_entry, 'form_id');
 
