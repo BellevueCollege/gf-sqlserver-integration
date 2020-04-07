@@ -16,6 +16,8 @@ class HealthcarePromotion_BAS {
 	protected $transcript_1;
 	protected $transcript_2;
 	protected $transcript_3;
+	protected $lor1;
+	protected $lor2;
 	protected $personal_stmt;
 	protected $diversity_stmt;
 	protected $signature;
@@ -34,8 +36,8 @@ class HealthcarePromotion_BAS {
 
 		if ( $conn ) {
 			try {
-				$result    = $this->transaction->save();   //save transaction first because of db constraint on trans id
-				$tsql      = 'EXEC [usp_InsertIntoHealthcarePromoAndMngmtForm]'
+				$result = $this->transaction->save();   //save transaction first because of db constraint on trans id
+				$tsql   = 'EXEC [usp_InsertIntoHealthcarePromoAndMngmtForm]'
 							. '@TransID = :TransID,'
 							. '@Fname = :FirstName,'
 							. '@Lname = :LastName,'
@@ -52,7 +54,10 @@ class HealthcarePromotion_BAS {
 							. '@UnofficialTrans3 = :UnofficialTranscript3,'
 							. '@PersonalStatement = :PersonalStatement,'
 							. '@DiversityStatement = :DiversityStatement,'
-							. '@ElectronicSignature = :ElectronicSignature;';
+							. '@ElectronicSignature = :ElectronicSignature,'
+							. '@LOR1 = :LOR1,'
+							. '@LOR2 = :LOR2;';
+
 					$query = $conn->prepare( $tsql );
 
 					$input_data = array(
@@ -73,6 +78,8 @@ class HealthcarePromotion_BAS {
 						'PersonalStatement'      => $this->personal_stmt,
 						'DiversityStatement'     => $this->diversity_stmt,
 						'ElectronicSignature'    => $this->signature,
+						'LOR1'                   => $this->lor1,
+						'LOR2'                   => $this->lor2,
 					);
 
 					$result = $query->execute( $input_data );
@@ -112,6 +119,10 @@ class HealthcarePromotion_BAS {
 		$this->transcript_1   = ! empty( $_entry['39'] ) ? rgar( $_entry, '39' ) : null;
 		$this->transcript_2   = ! empty( $_entry['40'] ) ? rgar( $_entry, '40' ) : null;
 		$this->transcript_3   = ! empty( $_entry['41'] ) ? rgar( $_entry, '41' ) : null;
+
+		$this->lor1           = ! empty( $_entry['52'] ) ? rgar( $_entry, '52' ) : null;
+		$this->lor2           = ! empty( $_entry['53'] ) ? rgar( $_entry, '53' ) : null;
+
 		$this->personal_stmt  = ! empty( $_entry['49'] ) ? rgar( $_entry, '49' ) : null;
 		$this->diversity_stmt = ! empty( $_entry['50'] ) ? rgar( $_entry, '50' ) : null;
 		$this->signature      = ! empty( $_entry['23'] ) ? rgar( $_entry, '23' ) : null;
