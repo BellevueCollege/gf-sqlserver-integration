@@ -7,6 +7,7 @@ class HealthcarePromotion_BAS {
 	protected $first_name;
 	protected $last_name;
 	protected $sid;
+	protected $emplid;
 	protected $email;
 	protected $personal_email;
 	protected $phone;
@@ -43,6 +44,7 @@ class HealthcarePromotion_BAS {
 							. '@Lname = :LastName,'
 							. '@FormID = :FormID,'
 							. '@SID = :SID,'
+							. '@EMPLID = :EMPLID,'
 							. '@BCEmail = :Email,'
 							. '@PersonalEmail = :PersonalEmail,'
 							. '@Phone = :Phone,'
@@ -66,6 +68,7 @@ class HealthcarePromotion_BAS {
 						'LastName'               => $this->last_name,
 						'FormID'                 => $this->form_id,
 						'SID'                    => $this->sid,
+						'EMPLID'                    => $this->emplid,
 						'Email'                  => $this->email,
 						'PersonalEmail'          => $this->personal_email,
 						'Phone'                  => $this->phone,
@@ -102,6 +105,7 @@ class HealthcarePromotion_BAS {
 		$this->first_name               = ! empty( $_entry['1.3'] ) ? rgar( $_entry, '1.3' ) : null;
 		$this->last_name                = ! empty( $_entry['1.6'] ) ? rgar( $_entry, '1.6' ) : null;
 		$this->sid                      = ! empty( $_entry['3'] ) ? rgar( $_entry, '3' ) : null;
+		$this->emplid                      = ! empty( $_entry['54'] ) ? rgar( $_entry, '54' ) : null;
 		$this->email                    = ! empty( $_entry['4'] ) ? rgar( $_entry, '4' ) : null;
 		$this->personal_email           = ! empty( $_entry['37'] ) ? rgar( $_entry, '37' ) : null;
 		$this->phone                    = ! empty( $_entry['5'] ) ? rgar( $_entry, '5' ) : null;
@@ -133,6 +137,7 @@ class HealthcarePromotion_BAS {
 			rgar( $_entry, 'transaction_id' ),
 			$this->form_id,
 			$this->sid,
+			$this->emplid,
 			$this->first_name,
 			$this->last_name,
 			$this->email,

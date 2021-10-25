@@ -8,34 +8,11 @@ class RadiologicTechnologyProgram_AA {
 	protected $first_name;
 	protected $last_name;
 	protected $sid;
+	protected $emplid;
 	protected $email;
 	protected $phone;
 	protected $other_email;
-	//    protected $eng_comp_course;
-	//    protected $eng_comp_term_completed;
-	//    protected $eng_comp_grade_earned;
-	//    protected $eng_comp_school_attended;
-	//
-	//    protected $int_alg_course;
-	//    protected $int_alg_term_completed;
-	//    protected $int_alg_grade_earned;
-	//    protected $int_alg_school_attended;
-	//
-	//    protected $ha_phyI_course;
-	//    protected $ha_phyI_term_completed;
-	//    protected $ha_phyI_grade_earned;
-	//    protected $ha_phyI_school_attended;
-	//
-	//    protected $ha_phyII_course;
-	//    protected $ha_phyII_term_completed;
-	//    protected $ha_phyII_grade_earned;
-	//    protected $ha_phyII_school_attended;
-	//
-	//    protected $cultural_div_course;
-	//    protected $cultural_div_term_completed;
-	//    protected $cultural_div_grade_earned;
-	//    protected $cultural_div_school_attended;
-	//
+
 	protected $did_attend_information_session;
 
 	protected $did_attend_in_person;
@@ -84,6 +61,7 @@ class RadiologicTechnologyProgram_AA {
 				$result = $this->transaction->save();   //save transaction first because of db constraint on trans id
 				$tsql   = 'EXEC [usp_InsertIntoAARadiologicTechForm]'
 							. '@SID = :SID,'
+							. '@EMPLID = :EMPLID,'
 							. '@Fname = :FirstName,'
 							. '@Lname = :LastName,'
 							. '@Phone = :Phone,'
@@ -125,6 +103,7 @@ class RadiologicTechnologyProgram_AA {
 					$query      = $conn->prepare( $tsql );
 					$input_data = array(
 						'SID'                         => $this->sid,
+						'EMPLID'                         => $this->emplid,
 						'FirstName'                   => $this->first_name,
 						'LastName'                    => $this->last_name,
 						'Phone'                       => $this->phone,
@@ -183,6 +162,7 @@ class RadiologicTechnologyProgram_AA {
 		$this->first_name  = ! empty( $_entry['2.3'] ) ? rgar( $_entry, '2.3' ) : null;
 		$this->last_name   = ! empty( $_entry['2.6'] ) ? rgar( $_entry, '2.6' ) : null;
 		$this->sid         = ! empty( $_entry['3'] ) ? rgar( $_entry, '3' ) : null;
+		$this->emplid         = ! empty( $_entry['50'] ) ? rgar( $_entry, '50' ) : null;
 		$this->email       = ! empty( $_entry['4'] ) ? rgar( $_entry, '4' ) : null;
 		$this->other_email = ! empty( $_entry['46'] ) ? rgar( $_entry, '46' ) : null;
 		$this->phone       = ! empty( $_entry['5'] ) ? rgar( $_entry, '5' ) : null;
@@ -254,6 +234,7 @@ class RadiologicTechnologyProgram_AA {
 			rgar( $_entry, 'transaction_id' ),
 			$this->form_id,
 			$this->sid,
+			$this->emplid,
 			$this->first_name,
 			$this->last_name,
 			$this->email,
