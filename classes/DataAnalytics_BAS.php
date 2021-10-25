@@ -13,6 +13,7 @@ class DataAnalytics_BAS {
 	protected $phone;
 	protected $highest_ed;
 	protected $program_start;
+	protected $concentration;
 	protected $enroll_status;
 	protected $transcript_1;
 	protected $transcript_2;
@@ -55,7 +56,8 @@ class DataAnalytics_BAS {
 							. '@EnrollmentStatus = :EnrollmentStatus,'
 							. '@ElectronicSignature = :ElectronicSignature,'
 							. '@AnotherCollegeCredits = :AnotherCollegeCredits,'
-							. '@PersonalStatementUpload = :PersonalStatementUpload;';
+							. '@PersonalStatementUpload = :PersonalStatementUpload,'
+							. '@Concentration = :Concentration;';
 					$query = $conn->prepare( $tsql );
 
 					$input_data = array(
@@ -78,6 +80,7 @@ class DataAnalytics_BAS {
 						'ElectronicSignature'     => $this->signature,
 						'AnotherCollegeCredits'   => $this->do_uhave_another_college_credits,
 						'PersonalStatementUpload' => $this->personal_statement_upload,
+						'Concentration'           => $this->concentration,
 					);
 
 					$result = $query->execute( $input_data );
@@ -112,6 +115,7 @@ class DataAnalytics_BAS {
 		$this->transcript_3   = ! empty( $_entry['57'] ) ? rgar( $_entry, '57' ) : null;
 		//$this->personal_stmt = !empty($_entry['12']) ? rgar($_entry, '12') : null;
 		$this->personal_statement_upload = ! empty( $_entry['60'] ) ? rgar( $_entry, '60' ) : null;
+		$this->concentration             = ! empty( $_entry['64'] ) ? rgar( $_entry, '64' ) : null;
 		$this->signature                 = ! empty( $_entry['23'] ) ? rgar( $_entry, '23' ) : null;
 		$this->form_id                   = rgar( $_entry, 'form_id' );
 		if ( empty( $_entry['61'] ) ) {
