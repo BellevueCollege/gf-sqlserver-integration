@@ -41,10 +41,10 @@ class TechPrepPayment {
 							. '@School = :School;';
 				$query = $conn->prepare( $tsql );
 
-				$input_data = array( 
-					'TransID'        => $this->transaction->get_id(), 
+				$input_data = array(
+					'TransID'        => $this->transaction->get_id(),
 					'FirstName'      => $this->first_name,
-					'LastName'       => $this->last_name, 
+					'LastName'       => $this->last_name,
 					'FormID'         => $this->form_id,
 					'Email'          => $this->email,
 					'Phone'          => $this->phone,
@@ -136,6 +136,7 @@ class TechPrepPayment {
 		$this->transaction = new Transaction(
 			rgar($_entry, 'transaction_id'),
 			$this->form_id,
+			null,
 			null,
 			$this->first_name,
 			$this->last_name,
