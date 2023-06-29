@@ -90,6 +90,7 @@ class OLSPayments {
 		$orientation_fee     = rgar( $_entry, '6.1' );
 		$payment_options     = rgar( $_entry, '7' );
 		$program             = rgar( $_entry, '11' );
+		$housing_experience  = rgar( $_entry, '26' );
 		$camps_deposit_1     = rgar( $_entry, '8.1' );
 		$camps_deposit_2     = rgar( $_entry, '8.2' );
 		$camps_balance_1     = rgar( $_entry, '9.1' );
@@ -105,6 +106,14 @@ class OLSPayments {
 		 */
 		if ( null != $orientation_fee ) {
 			$this->items .= "$orientation_fee; ";
+		}
+
+		/**
+		 * Housing Experience
+		 */
+		if ( null != $housing_experience ) {
+			$housing_experience = explode( '|', $housing_experience )[0];
+			$this->items .= "$housing_experience; ";
 		}
 
 		/**
