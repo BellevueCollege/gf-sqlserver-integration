@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /* Bare bones DB class all models can use */
 class DB {
@@ -11,12 +11,14 @@ class DB {
 
     //public constructor
     public function __construct() {
-        try{ 
+        try{
             //create new PDO object
             $this->db = new PDO($this->db_dsn, $this->db_user, $this->db_pass);
             $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			GFCommon::log_debug( 'GF SQLServer Integration::DB::construct -  Database Connection Successful' );
         } catch (PDOException $e) {
             error_log( print_r($e->getMessage(), true));
+			GFCommon::log_debug( 'GF SQLServer Integration::DB::construct -  Database Connection Error' . $e->getMessage() );
             return false;
         }
     }
@@ -25,4 +27,4 @@ class DB {
     public function getDB() {
         return $this->db;
     }
-} 
+}

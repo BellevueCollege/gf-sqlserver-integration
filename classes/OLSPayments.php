@@ -61,17 +61,21 @@ class OLSPayments {
 
 					);
 					$result     = $query->execute( $input_data );
-
+					GFCommon::log_debug( 'GF SQLServer Integration::OLSPayment::save - Input: ' . $tsql );
+					GFCommon::log_debug( 'GF SQLServer Integration::OLSPayment::save - Result: ' . print_r( $result, true ) );
 					//var_dump($result);
 					// var_dump($conn->errorCode());
 					//var_dump($conn->errorInfo());
 					return $result;
 			} catch ( PDOException $e ) {
 				error_log( print_r( 'PDOException in OLSPayment::save - ' . $e->getMessage(), true ) );
+				GFCommon::log_debug( 'GF SQLServer Integration::OLSPayment::save - PDOException: ' . $e->getMessage() );
 			} catch ( Exception $e ) {
 				error_log( print_r( 'General exception in OLSPayment::save - ' . $e->getMessage(), true ) );
+				GFCommon::log_debug( 'GF SQLServer Integration::OLSPayment::save - General Exception: ' . $e->getMessage() );
 			}
 		}
+		GFCommon::log_debug( 'GF SQLServer Integration::OLSPayment::save - No Database Connection' );
 		return false;
 	}
 
@@ -181,6 +185,8 @@ class OLSPayments {
 				rgar( $_entry, '14.4' ),
 				rgar( $_entry, '14.5' )
 			);
+			GFCommon::log_debug( 'GF SQLServer Integration::OLSPayment::build - Transaction object created' );
+			GFCommon::log_debug( 'GF SQLServer Integration::OLSPayment::build - Transaction object: ' . print_r( $this->transaction, true ) );
 
 		}
 
