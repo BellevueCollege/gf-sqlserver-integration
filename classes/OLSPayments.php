@@ -61,17 +61,21 @@ class OLSPayments {
 
 					);
 					$result     = $query->execute( $input_data );
-
+					GFCommon::log_debug( 'GF SQLServer Integration::OLSPayment::save - Input: ' . $tsql );
+					GFCommon::log_debug( 'GF SQLServer Integration::OLSPayment::save - Result: ' . print_r( $result, true ) );
 					//var_dump($result);
 					// var_dump($conn->errorCode());
 					//var_dump($conn->errorInfo());
 					return $result;
 			} catch ( PDOException $e ) {
 				error_log( print_r( 'PDOException in OLSPayment::save - ' . $e->getMessage(), true ) );
+				GFCommon::log_debug( 'GF SQLServer Integration::OLSPayment::save - PDOException: ' . $e->getMessage() );
 			} catch ( Exception $e ) {
 				error_log( print_r( 'General exception in OLSPayment::save - ' . $e->getMessage(), true ) );
+				GFCommon::log_debug( 'GF SQLServer Integration::OLSPayment::save - General Exception: ' . $e->getMessage() );
 			}
 		}
+		GFCommon::log_debug( 'GF SQLServer Integration::OLSPayment::save - No Database Connection' );
 		return false;
 	}
 
@@ -86,6 +90,7 @@ class OLSPayments {
 		$orientation_fee     = rgar( $_entry, '6.1' );
 		$payment_options     = rgar( $_entry, '7' );
 		$program             = rgar( $_entry, '11' );
+		$housing_experience  = rgar( $_entry, '26' );
 		$camps_deposit_1     = rgar( $_entry, '8.1' );
 		$camps_deposit_2     = rgar( $_entry, '8.2' );
 		$camps_balance_1     = rgar( $_entry, '9.1' );
@@ -101,6 +106,14 @@ class OLSPayments {
 		 */
 		if ( null != $orientation_fee ) {
 			$this->items .= "$orientation_fee; ";
+		}
+
+		/**
+		 * Housing Experience
+		 */
+		if ( null != $housing_experience ) {
+			$housing_experience = explode( '|', $housing_experience )[0];
+			$this->items .= "$housing_experience; ";
 		}
 
 		/**
@@ -181,6 +194,8 @@ class OLSPayments {
 				rgar( $_entry, '14.4' ),
 				rgar( $_entry, '14.5' )
 			);
+			GFCommon::log_debug( 'GF SQLServer Integration::OLSPayment::build - Transaction object created' );
+			GFCommon::log_debug( 'GF SQLServer Integration::OLSPayment::build - Transaction object: ' . print_r( $this->transaction, true ) );
 
 		}
 
