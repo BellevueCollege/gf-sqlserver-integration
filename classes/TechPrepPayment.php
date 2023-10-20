@@ -55,16 +55,18 @@ class TechPrepPayment {
 				);
 
 				$result = $query->execute($input_data);
-				//var_dump($result);
-				//var_dump($conn->errorCode());
-				//var_dump($conn->errorInfo());
+				//GFCommon::log_debug( 'GF SQLServer Integration::TechPrepPayment::save - Input: ' . $tsql );
+				//GFCommon::log_debug( 'GF SQLServer Integration::TechPrepPayment::save - Result: ' . print_r( $result, true ) );
 				return $result;
 			} catch (PDOException $e) {
 				error_log( print_r( "PDOException in TechPrepPayment::save - " . $e->getMessage(), true ) );
+				//GFCommon::log_debug( 'GF SQLServer Integration::TechPrepPayment::save - PDOException: ' . $e->getMessage() );
 			} catch (Exception $e) {
 				error_log( print_r( "General exception in TechPrepPayment::save - " . $e->getMessage(), true ) );
+				//GFCommon::log_debug( 'GF SQLServer Integration::TechPrepPayment::save - General Exception: ' . $e->getMessage() );
 			}
 		}
+		//GFCommon::log_debug( 'GF SQLServer Integration::TEchPrepPayment::save - No Database Connection' );
 		return false;
 	}
 
@@ -109,6 +111,12 @@ class TechPrepPayment {
 			'48',
 			'49',
 			'50',
+			'52', // Kent High Schools
+			'53', // Other for Kent High schools
+			'55',// Renton Hgh schools
+			'54', // Other for renton high schools
+			'56', // seattle high schools
+			'57', // other for seatle high schools
 		];
 
 		/**
@@ -153,6 +161,8 @@ class TechPrepPayment {
 			rgar($_entry, '12.4'),
 			rgar($_entry, '12.5')
 		);
+		GFCommon::log_debug( 'GF SQLServer Integration::TechPrepPayment::build - Transaction object created' );
+		GFCommon::log_debug( 'GF SQLServer Integration::TechPrepPayment::build - Transaction object: ' . print_r( $this->transaction, true ) );
 	}
 
 	//return transaction
