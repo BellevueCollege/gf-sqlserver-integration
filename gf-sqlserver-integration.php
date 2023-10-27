@@ -4,7 +4,7 @@ Plugin Name: Gravity Forms SQL Server Data Integration for Bellevue College
 Plugin URI: https://github.com/BellevueCollege/gf-sqlserver-integration
 Description: Moves Gravity Forms data to SQL Server for defined models
 Author: Bellevue College Integration Team
-Version: 2.9
+Version: 2.10
 Author URI: http://www.bellevuecollege.edu
 GitHub Plugin URI: bellevuecollege/gf-sqlserver-integration
 */
@@ -37,6 +37,7 @@ require_once( 'classes/NuclearMedicineProgram_AA.php' );
 require_once( 'classes/DiagnosticUltrasoundTechnologyProgram_AA.php' );
 require_once( 'classes/NeurodiagnosticTechnologyProgram_AA.php' );
 require_once( 'classes/OLSPayments.php' );
+require_once( 'classes/PNWCC-Manual.php'); // New Tech Prep 2nd Payment form
 //Remove Amex from accepted card types
 add_filter( 'gform_creditcard_types', 'remove_amex' );
 function remove_amex( $cards ) {
@@ -140,6 +141,8 @@ function gfsi_process_submission( $entry, $action ) {
 		case 'OLSPayments':
 			$model = new OLSPayments();
 			break;
+		case 'PNWCC-Manual': // New TechPrep Payment
+			$model = new PNWCCManual();
 		//        case 'ASNConference':
 		//            error_log("Hello *********************************************");
 		//            $model = new ConferenceRegistration();
