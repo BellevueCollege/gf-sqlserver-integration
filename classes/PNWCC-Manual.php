@@ -3,13 +3,13 @@
 require_once('DB.php');
 require_once('Transaction.php');
 
-class PNWCC-Manual {
+class PNWCCManual {
 	//form data fields
 	protected $first_name;
 	protected $last_name;
-
 	protected $email;
 	protected $phone;
+	protected $amount;
 	protected $dob;
 	protected $pnwcc_manual_id;
 	protected $transaction;
@@ -36,7 +36,8 @@ class PNWCC-Manual {
 							. '@DOB = :Dob,'
 							. '@Email = :Email,'
 							. '@Phone = :Phone,'
-							. '@PNWCCManualID = :PNWCCManualID,'
+							. '@Amount = :PaymentAmount,' //show price in PNWCC Table
+							. '@TechPrepID = :TechPrepID,'
 							. '@SchoolDistrict = :SchoolDistrict,'
 							. '@School = :School;';
 				$query = $conn->prepare( $tsql );
@@ -48,8 +49,9 @@ class PNWCC-Manual {
 					'FormID'         => $this->form_id,
 					'Email'          => $this->email,
 					'Phone'          => $this->phone,
+					'PaymentAmount'	 => $this->amount,
 					'Dob'            => $this->dob,
-					'PNWCCManualID'     => $this->pnwcc_manual_id,
+					'TechPrepID'     => $this->tech_prep_id,
 					'SchoolDistrict' => $this->school_district,
 					'School'         => $this->school,
 				);
@@ -129,8 +131,9 @@ class PNWCC-Manual {
 		$this->last_name       = !empty($_entry['1.6']) ? rgar($_entry, '1.6') : null;
 		$this->email           = !empty($_entry['2']) ? rgar($_entry, '2') : null;
 		$this->phone           = !empty($_entry['3']) ? rgar($_entry, '3') : null;
+		$this->amount 		   = rgar($_entry, 'payment_amount')?? null;
 		$this->dob             = !empty($_entry['4']) ? rgar($_entry, '4') : null;
-		$this->pnwcc_manual_id    = !empty($_entry['5']) ? rgar($_entry, '5') : null;
+		$this->tech_prep_id    = !empty($_entry['5']) ? rgar($_entry, '5') : null;
 		$this->school_district = !empty($_entry['16']) ? rgar($_entry, '16') : null;
 		$this->school          = $school_name;
 		$this->form_id         = rgar($_entry, 'form_id');

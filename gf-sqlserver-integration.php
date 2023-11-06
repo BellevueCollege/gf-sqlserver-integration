@@ -143,6 +143,7 @@ function gfsi_process_submission( $entry, $action ) {
 			break;
 		case 'PNWCC-Manual': // New TechPrep Payment
 			$model = new PNWCCManual();
+			break;
 		//        case 'ASNConference':
 		//            error_log("Hello *********************************************");
 		//            $model = new ConferenceRegistration();
