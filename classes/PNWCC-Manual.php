@@ -3,15 +3,15 @@
 require_once('DB.php');
 require_once('Transaction.php');
 
-class TechPrepPayment {
+class PNWCCManual {
 	//form data fields
 	protected $first_name;
 	protected $last_name;
-
 	protected $email;
 	protected $phone;
+	protected $amount;
 	protected $dob;
-	protected $tech_prep_id;
+	protected $pnwcc_manual_id;
 	protected $transaction;
 	protected $form_id;
 	protected $school_district;
@@ -28,7 +28,7 @@ class TechPrepPayment {
 		if ( $conn ) {
 			try {
 				$result = $this->transaction->save();   //save transaction first because of db constraint on trans id
-				$tsql = 'EXEC [usp_InsertIntoTechPrepPaymentForm]'
+				$tsql = 'EXEC [usp_InsertIntoPNWCC-ManualForm]'
 							. '@TransID = :TransID,'
 							. '@Fname = :FirstName,'
 							. '@Lname = :LastName,'
@@ -36,6 +36,7 @@ class TechPrepPayment {
 							. '@DOB = :Dob,'
 							. '@Email = :Email,'
 							. '@Phone = :Phone,'
+							. '@Amount = :PaymentAmount,' //show price in PNWCC Table
 							. '@TechPrepID = :TechPrepID,'
 							. '@SchoolDistrict = :SchoolDistrict,'
 							. '@School = :School;';
@@ -48,6 +49,7 @@ class TechPrepPayment {
 					'FormID'         => $this->form_id,
 					'Email'          => $this->email,
 					'Phone'          => $this->phone,
+					'PaymentAmount'	 => $this->amount,
 					'Dob'            => $this->dob,
 					'TechPrepID'     => $this->tech_prep_id,
 					'SchoolDistrict' => $this->school_district,
@@ -55,18 +57,13 @@ class TechPrepPayment {
 				);
 
 				$result = $query->execute($input_data);
-				//GFCommon::log_debug( 'GF SQLServer Integration::TechPrepPayment::save - Input: ' . $tsql );
-				//GFCommon::log_debug( 'GF SQLServer Integration::TechPrepPayment::save - Result: ' . print_r( $result, true ) );
 				return $result;
 			} catch (PDOException $e) {
-				error_log( print_r( "PDOException in TechPrepPayment::save - " . $e->getMessage(), true ) );
-				//GFCommon::log_debug( 'GF SQLServer Integration::TechPrepPayment::save - PDOException: ' . $e->getMessage() );
+				error_log( print_r( "PDOException in PNWCC-Manual::save - " . $e->getMessage(), true ) );
 			} catch (Exception $e) {
-				error_log( print_r( "General exception in TechPrepPayment::save - " . $e->getMessage(), true ) );
-				//GFCommon::log_debug( 'GF SQLServer Integration::TechPrepPayment::save - General Exception: ' . $e->getMessage() );
+				error_log( print_r( "General exception in PNWCC-Manual::save - " . $e->getMessage(), true ) );
 			}
 		}
-		//GFCommon::log_debug( 'GF SQLServer Integration::TEchPrepPayment::save - No Database Connection' );
 		return false;
 	}
 
@@ -134,6 +131,7 @@ class TechPrepPayment {
 		$this->last_name       = !empty($_entry['1.6']) ? rgar($_entry, '1.6') : null;
 		$this->email           = !empty($_entry['2']) ? rgar($_entry, '2') : null;
 		$this->phone           = !empty($_entry['3']) ? rgar($_entry, '3') : null;
+		$this->amount 		   = rgar($_entry, 'payment_amount')?? null;
 		$this->dob             = !empty($_entry['4']) ? rgar($_entry, '4') : null;
 		$this->tech_prep_id    = !empty($_entry['5']) ? rgar($_entry, '5') : null;
 		$this->school_district = !empty($_entry['16']) ? rgar($_entry, '16') : null;
@@ -161,8 +159,8 @@ class TechPrepPayment {
 			rgar($_entry, '12.4'),
 			rgar($_entry, '12.5')
 		);
-		GFCommon::log_debug( 'GF SQLServer Integration::TechPrepPayment::build - Transaction object created' );
-		GFCommon::log_debug( 'GF SQLServer Integration::TechPrepPayment::build - Transaction object: ' . print_r( $this->transaction, true ) );
+		GFCommon::log_debug( 'GF SQLServer Integration::PNWCC-Manual::build - Transaction object created' );
+		GFCommon::log_debug( 'GF SQLServer Integration::PNWCC-Manual::build - Transaction object: ' . print_r( $this->transaction, true ) );
 	}
 
 	//return transaction
